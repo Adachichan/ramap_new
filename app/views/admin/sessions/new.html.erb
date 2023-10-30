@@ -1,0 +1,30 @@
+<%= form_with model: @admin, url: admin_session_path do |f| %>
+
+  <div class = "admin_login_form px-4">
+    
+    <h5>管理者ログイン</h5>
+    
+    <%# deivseのフラッシュメッセージを表示 %>
+    <p class = "alert"><%= alert %></p>
+    
+    <div class = "field mb-4">
+      <%= f.label :email, "メールアドレス：", class: "admin_login_label" %>
+      <div class = "admin_login_email_field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレスを入力してください", class: "form-control" %>
+      </div>
+    </div>
+    
+    <div class = "field mb-5">
+      <%= f.label :password, "パスワード：", class: "admin_login_label" %>
+      <div class = "admin_login_password_field">
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+      </div>
+    </div>
+    
+    <div class = "actions mb-4">
+      <%= f.submit "ログイン", class: "btn btn-primary admin_login_button" %>
+    </div>
+    
+  </div>
+
+<% end %>

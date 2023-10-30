@@ -1,0 +1,134 @@
+<div class = "public_review_show px-4">
+
+  <h5><%= @review.store.name %>の口コミ詳細</h5>
+
+  <div class = "public_review_show_1">
+
+    <div class = "row">
+
+      <div class = "col-sm-9">
+
+        <div class = "public_review_show_content_group mb-3">
+          <div class = "public_review_show_review_title">投稿者（ニックネーム）</div>
+          <div class = "public_review_show_review_content"><%= @review.user.nickname %></div>
+        </div>
+
+        <div class = "public_review_show_content_group mb-3">
+          <div class = "public_review_show_review_title">訪問日</div>
+          <div class = "public_review_show_review_content"><%= @review.visit_date.strftime("%Y/%-m/%-d") %></div>
+        </div>
+
+        <div class = "public_review_show_content_group mb-3">
+          <div class = "public_review_show_review_title">タイトル</div>
+          <div class = "public_review_show_review_content"><%= @review.title %></div>
+        </div>
+
+        <div class = "public_review_show_content_group mb-3">
+          <div class = "public_review_show_review_title">内容</div>
+          <div class = "public_review_show_review_content"><%= @review.content %></div>
+        </div>
+
+        <div class = "public_review_show_content_group mb-1">
+          <div class = "public_review_show_review_title">点数</div>
+          <div class = "public_review_show_review_score_bar">
+            <div>
+              <dd>
+                <span style = "width: <%= @review.score.to_i %>%">
+                  <%= @review.score.to_i %>点
+                </span>
+              </dd>
+            </div>
+          </div>
+        </div>
+
+        <div class = "public_review_show_content_group mb-3">
+          <div class = "public_review_show_review_title">投稿日時</div>
+          <div class = "public_review_show_review_content"><%= @review.created_at.strftime("%Y/%-m/%-d %H:%M:%S") %></div>
+        </div>
+
+        <div class = "public_review_show_content_favorite_group">
+          <!-- ログインしていない場合はお気に入りクリック不可 -->
+          <% if user_signed_in? %>
+            <div id = "favorite_buttons_<%= @review.id %>">
+              <%= render "public/reviews/favorite", review: @review %>
+            </div>
+          <% else %>
+            <span><i class = "fa-solid fa-heart fa-beat fa-lg" style = "color: #ff0000; width: 30px"></i><%= @review.favorites.count %> いいね<span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class = "col-sm-3">
+        <div class = "public_review_show_store_image">
+          <div><%= image_tag @review.get_review_image("200x200!") %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class = "mt-3 mb-5">
+    <%= link_to '＜　口コミ一覧に戻る', store_reviews_path(@review.store_id) %>
+  </div>
+
+  <!-- ログインしていない場合はコメント投稿不可 -->
+  <% if user_signed_in? %>
+    <div class = "public_review_show_comment_new_form mb-5">
+
+      <%= form_with model: [@review, @comment], url: review_comments_path(@review.id) do |f| %>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "public_review_show_comment_new_label">
+              <%= f.label :content, "コメント投稿：", class: "mb-0" %>
+            </div>
+            <div class = "public_review_show_comment_new_text_area">
+              <%= f.text_area :content, placeholder: "コメントを入力してください", class: "form-control", style: "height: 100px" %>
+            </div>
+            <div class = "actions">
+              <%= f.submit "投稿する", class: "btn btn-primary public_review_show_comment_create_button" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- content_error -->
+            <%= render 'layouts/error_message', model: @comment, column: :content %>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class = "public_review_show_2">
+
+    <div class = "public_review_show_comment_index_title">
+      <i class="fa-solid fa-comments fa-lg" style="color: #669eff;"></i>　コメント一覧
+    </div>
+
+    <% @comments.each do |comment| %>
+
+      <div class = "public_review_show_comment">
+
+        <div class = "public_review_show_comment_group mb-2">
+          <div class = "public_review_show_comment_title">投稿者</div>
+          <div class = "public_review_show_comment_content"><%= comment.poster %></div>
+        </div>
+
+        <div class = "public_review_show_comment_group mb-2">
+          <div class = "public_review_show_comment_title">内容</div>
+          <div class = "public_review_show_comment_content"><%= comment.content %></div>
+        </div>
+
+        <div class = "public_review_show_comment_group mb-3">
+          <div class = "public_review_show_comment_title">投稿日時</div>
+          <div class = "public_review_show_comment_content"><%= comment.created_at.strftime("%Y/%-m/%-d %H:%M:%S") %></div>
+        </div>
+
+      </div>
+    <% end %>
+
+    <div>
+      <%= paginate @comments %>
+    </div>
+
+  </div>
+</div>

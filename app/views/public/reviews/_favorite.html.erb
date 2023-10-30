@@ -1,0 +1,11 @@
+<% if review.favorited_by?(current_user) %>
+  <%= link_to review_favorites_path(review.id), method: :delete, remote: true, data: {"turbolinks" => false} do %>
+    <span><i class = "fa-solid fa-heart fa-beat fa-lg" style = "color: #ff0000; width: 30px"></i><%= review.favorites.count %>いいね</span>
+  <% end %>
+
+<% else %>
+  <%= link_to review_favorites_path(review.id), method: :post, remote: true, data: {"turbolinks" => false} do %>
+    <span><i class = "fa-solid fa-heart fa-beat fa-lg" style = "color: #ff0000; width: 30px"></i><%= review.favorites.count %>いいね</span>
+  <% end %>
+
+<% end %>

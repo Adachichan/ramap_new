@@ -1,0 +1,6 @@
+<!-- error message 用の部分テンプレート -->
+<% if model.errors.include?(column) %>
+  <% model.errors.full_messages_for(column).each do |message| %>
+    <li class = "text-danger"><%= message %></li>
+  <% end %>
+<% end %>

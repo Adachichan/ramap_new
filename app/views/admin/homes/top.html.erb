@@ -1,0 +1,91 @@
+<% if @top_screen_flag == 0 %>
+  <div class = "admin_top_view_1 px-4">
+
+    <h5 class = "admin_top_title">店舗一覧</h5>
+
+    <div class = "admin_top_index">
+      <table class = "table table-borderless mb-4">
+        <thead>
+          <tr>
+            <th class = "th1">店舗ID</th>
+            <th class = "th2">登録日時</th>
+            <th class = "th3">登録者</th>
+            <th class = "th4">登録店舗</th>
+            <th class = "th5">開店ステータス</th>
+          </tr>
+        </thead>
+
+        <% @stores.each do |store| %>
+          <tbody>
+            <tr>
+              <td class = "td1"><%= store.id %></td>
+              <td class = "td2">
+                <%= link_to store.created_at.strftime("%Y/%-m/%-d %H:%M:%S"), admin_store_path(store.id) %>
+              </td>
+              <td class = "td3">
+                <%= link_to store.user.name, admin_root_path(user_id: store.user_id) %>
+              </td>
+              <td class = "td4"><%= store.name %></td>
+              <% if store.is_closed == true %>
+                <td class = "td5" style = "color: red">閉店</td>
+              <% else %>
+                <td class = "td5" style = "color: green">開店</td>
+              <% end %>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+
+      <div>
+        <%= paginate @stores %>
+      </div>
+
+    </div>
+  </div>
+
+<% else %>
+  <div class = "admin_top_view_2 px-4">
+
+    <h5 class = "admin_top_title"><%= @user.name %>さんの店舗登録履歴</h5>
+
+    <div class = "admin_top_index">
+      <table class = "table table-borderless">
+        <thead>
+          <tr>
+            <th class = "th1">店舗ID</th>
+            <th class = "th2">登録日時</th>
+            <th class = "th4">登録店舗</th>
+            <th class = "th5">開店ステータス</th>
+          </tr>
+        </thead>
+
+        <% @stores.each do |store| %>
+          <tbody>
+            <tr>
+              <td class = "td1"><%= store.id %></td>
+              <td class = "td2">
+                <%= link_to store.created_at.strftime("%Y/%-m/%-d %H:%M:%S"), admin_store_path(store.id) %>
+              </td>
+              <td class = "td4"><%= store.name %></td>
+              <% if store.is_closed == true %>
+                <td class = "td5" style = "color: red">閉店</td>
+              <% else %>
+                <td class = "td5" style = "color: green">開店</td>
+              <% end %>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+
+      <div class = "mt-3 mb-3">
+        <%= link_to '＜　店舗一覧に戻る', admin_root_path %>
+      </div>
+
+      <div>
+        <%= paginate @stores %>
+      </div>
+
+    </div>
+  </div>
+
+<% end %>

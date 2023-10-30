@@ -1,0 +1,31 @@
+<div class = "admin_store_genre_edit px-4">
+
+  <h5>ジャンル編集</h5>
+
+  <div class = "admin_store_genre_edit_form">
+
+    <%= form_with model: @store_genre, url: admin_store_genre_path(@store_genre.id) do |f| %>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "admin_store_genre_edit_label">
+            <%= f.label :name, "ジャンル名：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "admin_store_genre_edit_text_field">
+            <%= f.text_field :name, placeholder: "ジャンル名を入力してください", class: "form-control" %>
+          </div>
+          <div class = "actions">
+            <%= f.submit "変更を保存", class: "btn btn-success admin_store_genre_update_button" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- name_error -->
+          <%= render 'layouts/error_message', model: @store_genre, column: :name %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>

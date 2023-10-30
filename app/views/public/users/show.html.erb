@@ -1,0 +1,41 @@
+<div class = "public_mypage_show px-4">
+
+  <h5 class = "public_mypage_title">マイページ</h5>
+
+  <div class = "public_mypage_user_info_edit">
+    <h5>登録情報</h5>
+    <%= link_to edit_information_path, class: "btn btn-success public_mypage_user_info_edit_button" do %>
+      編集する
+    <% end %>
+  </div>
+
+  <div class = "public_mypage_user_info_detail">
+    <table class = "table">
+      <tr><th>名前</th><td><%= @user.name %></td></tr>
+      <tr><th>名前（カナ）</th><td><%= @user.name_kana %></td></tr>
+      <tr><th>ニックネーム</th><td><%= @user.nickname %></td></tr>
+      <tr><th>性別</th><td><%= @user.sex_i18n %></td></tr>
+      <tr><th>郵便番号</th><td><%= @user.postal_code %></td></tr>
+      <tr><th>住所</th><td><%= @user.address %></td></tr>
+      <tr><th>電話番号</th><td><%= @user.telephone_number %></td></tr>
+      <tr><th>メールアドレス</th><td><%= @user.email %></td></tr>
+    </table>
+  </div>
+
+  <div class = "public_mypage_store_info_index">
+    <h5>店舗情報</h5>
+    <%= link_to mystores_path, class: "btn btn-primary public_mypage_store_info_index_button" do %>
+      一覧を見る
+    <% end %>
+  </div>
+
+  <div class = "public_mypage_review_index">
+    <h5>口コミ投稿</h5>
+    <%= link_to store_review_history_path, class: "btn btn-primary public_mypage_review_index_button" do %>
+      一覧を見る
+    <% end %>
+  </div>
+
+</div>
+
+

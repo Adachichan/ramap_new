@@ -1,0 +1,60 @@
+<div class = "public_mymenu_edit px-4">
+
+  <h5>メニュー編集</h5>
+
+  <div class = "public_mymenu_edit_form">
+
+    <%= form_with model: @mymenu, url: "/mystores/#{@mymenu.store_id}/mymenus/#{@mymenu.id}" do |mymenu| %>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_mymenu_edit_label">
+            <%= mymenu.label :menu_image, "メニュー画像", class: "mb-0" %>
+          </div>
+          <div class = "public_mymenu_edit_file_field">
+            <%= mymenu.file_field :menu_image, accept: "image/*" %>
+          </div>
+        </div>
+      </div>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_mymenu_edit_label">
+            <%= mymenu.label :name, "メニュー名：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "public_mymenu_edit_text_field">
+            <%= mymenu.text_field :name, placeholder: "メニュー名を入力してください", class: "form-control" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- name_error -->
+          <%= render 'layouts/error_message', model: @mymenu, column: :name %>
+        </div>
+      </div>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_mymenu_edit_label">
+            <%= mymenu.label :price, "値段(税抜)：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "public_mymenu_edit_text_field">
+            <%= mymenu.text_field :price, placeholder: "価格(税抜)を入力してください", class: "form-control" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- price_error -->
+          <%= render 'layouts/error_message', model: @mymenu, column: :price %>
+        </div>
+      </div>
+
+      <div class="actions mb-4">
+        <%= mymenu.submit "変更内容を保存", class: "btn btn-success public_mymenu_update_button" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

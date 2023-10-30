@@ -1,0 +1,35 @@
+<%= form_with model: @user, url: user_session_path do |f| %>
+  <%#= render "public/shared/error_messages", resource: resource %>
+
+  <div class = "public_login_form px-4">
+
+    <h5>ログイン</h5>
+
+    <%# deivseのフラッシュメッセージを表示 %>
+    <p class = "alert"><%= alert %></p>
+
+    <div class = "field mb-4">
+      <%= f.label :email, "メールアドレス：", class: "public_login_label" %>
+      <div class = "public_login_email_field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレスを入力してください", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class = "field mb-5">
+      <%= f.label :password, "パスワード：", class: "public_login_label" %>
+      <div class = "public_login_password_field">
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class = "actions mb-4">
+      <%= f.submit "ログイン", class: "btn btn-primary public_login_button" %>
+    </div>
+
+    <div class = "mb-4">
+      ※会員登録がお済みでない方は、 <%= render "public/shared/links" %>　より会員登録を行ってください。
+    </div>
+
+  </div>
+
+<% end %>

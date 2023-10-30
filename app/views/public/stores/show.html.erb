@@ -1,0 +1,131 @@
+<div class = "public_store_show px-4">
+
+  <div class = "row">
+
+    <div class = "public_store_show_overview col-sm-5">
+      <h5><%= @store.name %></h5>
+      <div class = "public_store_show_prefecture"><%= @store.prefecture_i18n %></div>
+      <div class = "public_store_show_closest_station"><%= @store.store_genre.name %> / <%= @store.closest_station %></div>
+      <% if @store.reviews.length > 0 %>
+        <div class = "public_store_show_review_score_bar">
+          <div>
+            <i class = "fa-regular fa-star"></i>
+            <dd>
+              <span style="width: <%= @store.reviews.map(&:score).sum.fdiv(@store.reviews.map(&:score).length).round %>%">
+                <%= @store.reviews.map(&:score).sum.fdiv(@store.reviews.map(&:score).length).round %>点
+              </span>
+            </dd>
+          </div>
+        </div>
+      <% end %>
+      <div class = "public_store_show_review">
+        <%= link_to store_reviews_path(@store.id) do %>
+          <i class="fa-regular fa-comment icon_size"></i><%= @store.reviews.count %>件
+        <% end %>
+      </div>
+      <div class = "public_store_show_price_range"><i class = "fa-solid fa-coins icon_size"></i><%= @store.lowest_price_range %> ～ <%= @store.highest_price_range %>円</div>
+      <div class = "public_store_show_opening_hour"><i class="fa-regular fa-clock icon_size"></i>
+        <%# cocoon箇所 %>
+        <%# 営業時間の存在確認 %>
+        <% if @store.opening_hours.count == 0 %>
+          <%# 営業時間なしの場合の表示 %>
+          営業時間情報なし
+        <% else %>
+          <%# 営業時間がある場合の表示 %>
+          <% @store.opening_hours.each do |opening_hour| %>
+            <% opening_hour_counter = 1 %>
+            <%= opening_hour.opening_time.strftime("%-H:%M") %> ～ <%= opening_hour.closing_time.strftime("%-H:%M") %>
+            <% if opening_hour_counter < @store.opening_hours.count %>
+              &emsp;
+              <% opening_hour_counter += 1 %>
+          <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class = "public_store_show_regular_holiday"><i class="fa-solid fa-store-slash icon_size"></i>
+        <% day_counter = 1 %>
+        <% @store.days.order("id").each do |day| %>
+          <%= day.name %>
+          <% if day_counter < @store.days.count %>
+            ・
+            <% day_counter += 1 %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class = "public_store_show_image"><%= image_tag @store.get_store_image("330x260!") %></div>
+    </div>
+
+    <% if @menus.length > 0 %>
+
+      <div class = "public_store_show_menu_part col-sm-7">
+
+        <div class = "public_store_show_menu_title">主なメニュー</div>
+
+        <div class = "row">
+          <% @menus.each do |menu| %>
+            <div class = "col-6 col-sm-4 public_store_show_menu">
+              <div class = "public_store_show_menu_image"><%= image_tag menu.get_menu_image("150x150!") %></div>
+              <div class = "public_stSore_show_menu_name"><%= menu.name %></div>
+              <div class = "public_store_show_menu_price"><%= number_to_currency(menu.with_tax_price, strip_insignificant_zeros: true) %>&ensp;(<%= number_to_currency(menu.price, strip_insignificant_zeros: true) %>)</div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class = "public_store_show_menu_link">
+          <%= link_to '全てのメニューを見る　＞', store_menus_path(@store.id) %>
+        </div>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+  <div class = "public_store_show_detail">
+
+    <h6>店舗詳細</h6>
+
+    <table class = "table">
+      <tr><th>店名</th><td><%= @store.name %></td></tr>
+      <tr><th>ジャンル</th><td><%= @store.store_genre.name %></td></tr>
+      <tr><th>電話番号</th><td><%= @store.telephone_number %></td></tr>
+      <tr><th>郵便番号</th><td><%= @store.postal_code %></td></tr>
+      <tr><th>住所</th><td><%= @store.prefecture_i18n %><%= @store.address %><%= @store.building_and_apartment %></td></tr>
+      <tr><th>最寄り駅</th><td><%= @store.closest_station %></td></tr>
+      <tr><th>営業時間</th>
+        <td>
+          <%# cocoon箇所 %>
+          <%# 営業時間の存在確認 %>
+          <% if @store.opening_hours.count == 0 %>
+            <%# 営業時間なしの場合の表示 %>
+            営業時間情報なし
+          <% else %>
+            <%# 営業時間がある場合の表示 %>
+            <% @store.opening_hours.each do |opening_hour| %>
+              <% opening_hour_counter = 1 %>
+              <%= opening_hour.opening_time.strftime("%-H:%M") %> ～ <%= opening_hour.closing_time.strftime("%-H:%M") %>
+              <% if opening_hour_counter < @store.opening_hours.count %>
+                &emsp;
+                <% opening_hour_counter += 1 %>
+            <% end %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+      <tr><th>定休日</th>
+        <td>
+          <% day_counter = 1 %>
+          <% @store.days.order("id").each do |day| %>
+            <%= day.name %>
+            <% if day_counter < @store.days.count %>
+              ・
+              <% day_counter += 1 %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+      <tr><th>備考</th><td><%= @store.note %></td></tr>
+
+    </table>
+  </div>
+</div>

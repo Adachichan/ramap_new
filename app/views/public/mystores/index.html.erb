@@ -1,0 +1,56 @@
+<div class = "public_mystore_index px-4">
+
+  <div class = "public_mystore_index_1 mb-1">
+    <h5 class = "public_mystore_index_title">店舗情報（一覧）</h5>
+
+    <div class = "public_mystore_index_new_button">
+      <%= button_to "＋", new_mystore_path, method: :get, class: "text-dark font-weight-bold border border-dark bg-white", style: "border-radius: 50%" %>
+    </div>
+  </div>
+
+  <div class = "public_mystore_index_2">
+    <table class = "table table-borderless">
+      <thead>
+        <tr>
+          <th class = "th1">No</th>
+          <th class = "th2">店舗名</th>
+          <th class = "th3">開店ステータス</th>
+          <th class = "th4">店舗詳細</th>
+          <th class = "th5">メニュー</th>
+        </tr>
+      </thead>
+
+      <% @mystores.each_with_index do |mystore,i| %>
+        <tbody>
+          <tr>
+            <td class = "td1"><%= i + 1 + @number %></td>
+            <td class = "td2"><%= mystore.name %></td>
+            <td class = "td3">
+              <% if mystore.is_closed == true %>
+                <div style = "color: red">閉店</div>
+              <% else %>
+                <div style = "color: green">開店</div>
+              <% end %>
+            </td>
+            <td class = "td4">
+              <%= link_to mystore_path(mystore.id), class: "btn btn-primary public_mystore_index_show_button" do %>
+                表示する
+              <% end %>
+            </td>
+            <td class = "td5">
+              <%= link_to mystore_mymenus_path(mystore.id), class: "btn btn-warning public_mystore_index_menu_button" do %>
+                表示する
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+
+    <div>
+      <%= paginate @mystores %>
+    </div>
+
+  </div>
+</div>
+

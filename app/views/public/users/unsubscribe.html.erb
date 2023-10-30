@@ -1,0 +1,25 @@
+<div class = "public_user_unsubscribe px-4">
+
+  <h5>本当に退会しますか？</h5>
+
+  <p>
+    退会すると、店舗登録や投稿機能が一切使用できなくなります。</br>
+    また、登録した店舗が「閉店」状態となり、</br>
+    店舗情報の内容がサイト上に一切表示されなくなります。</br>
+    退会する場合は、「退会する」をクリックしてください。
+  </p>
+
+  <div class = "public_user_unsubscribe_action mb-4">
+    <div class = "actions">
+      <%= link_to mypage_path, class: "btn btn-primary public_user_not_unsubscribe_button" do %>
+        退会しない
+      <% end %>
+    </div>
+
+    <div class = "actions">
+      <%= link_to withdraw_path, method: :patch, class: "btn btn-danger public_user_unsubscribe_button", data: { confirm: '本当に退会しますか？' } do %>
+        退会する
+      <% end %>
+    </div>
+  </div>
+</div>

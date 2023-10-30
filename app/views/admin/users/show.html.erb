@@ -1,0 +1,75 @@
+<div class = "admin_user_show px-4">
+
+  <h5><%= @user.name %>さんの会員詳細</h5>
+
+  <div class = "admin_user_show_info mb-4">
+    <div class = "admin_store_show_info_title">会員ID</div>
+    <div class = "admin_store_show_info_content"><%= @user.id %></div>
+  </div>
+
+  <div class = "admin_user_show_info mb-4">
+    <div class = "admin_store_show_info_title">名前</div>
+    <div class = "admin_store_show_info_content"><%= @user.name %></div>
+  </div>
+
+  <div class = "admin_user_show_info mb-4">
+    <div class = "admin_store_show_info_title">名前（カナ）</div>
+    <div class = "admin_store_show_info_content"><%= @user.name_kana %></div>
+  </div>
+
+  <div class = "admin_user_show_info mb-4">
+    <div class = "admin_store_show_info_title">ニックネーム</div>
+    <div class = "admin_store_show_info_content"><%= @user.nickname %></div>
+  </div>
+
+  <div class = "admin_user_show_info mb-4">
+    <div class = "admin_store_show_info_title">性別</div>
+    <div class = "admin_store_show_info_content"><%= @user.sex_i18n %></div>
+  </div>
+
+  <div class = "admin_user_show_info mb-4">
+    <div class = "admin_store_show_info_title">郵便番号</div>
+    <div class = "admin_store_show_info_content">〒<%= @user.postal_code %></div>
+  </div>
+
+  <div class = "admin_user_show_info mb-4">
+    <div class = "admin_store_show_info_title">住所</div>
+    <div class = "admin_store_show_info_content"><%= @user.address %></div>
+  </div>
+
+  <div class = "admin_user_show_info mb-4">
+    <div class = "admin_store_show_info_title">電話番号</div>
+    <div class = "admin_store_show_info_content"><%= @user.telephone_number %></div>
+  </div>
+
+  <div class = "admin_user_show_info mb-4">
+    <div class = "admin_store_show_info_title">メールアドレス</div>
+    <div class = "admin_store_show_info_content"><%= @user.email %></div>
+  </div>
+
+  <div class = "admin_user_show_info mb-5">
+    <div class = "admin_store_show_info_title">会員ステータス</div>
+    <% if @user.is_deleted == true %>
+      <div class = "admin_store_show_info_content" style = "color: red">退会</div>
+    <% else %>
+      <div class = "admin_store_show_info_content" style = "color: green">有効</div>
+    <% end %>
+  </div>
+
+  <div class = "admin_user_show_button_group mb-4">
+
+    <%= link_to edit_admin_user_path(@user.id), class: "btn btn-success admin_user_edit_button" do %>
+      編集する
+    <% end %>
+
+    <%= link_to admin_root_path(user_id: @user.id), class: "btn btn-primary admin_user_store_index_button" do %>
+      店舗登録履歴を見る
+    <% end %>
+
+    <%= link_to admin_reviews_path(user_id: @user.id), class: "btn admin_user_review_index_button", style: "color: white; background-color: #FFAD90" do %>
+      口コミ投稿履歴を見る
+    <% end %>
+
+  </div>
+
+</div>

@@ -1,0 +1,185 @@
+<div class = "admin_store_show px-4">
+
+  <h5><%= @store.name %>の店舗情報</h5>
+
+  <div class = "row">
+
+    <div class = "admin_store_show_store_name col-7">
+
+      <div class = "admin_store_show_store mb-4">
+        <div class = "admin_store_show_store_title">店舗ID</div>
+        <div class = "admin_store_show_store_content"><%= @store.id %></div>
+      </div>
+
+      <div class = "admin_store_show_store mb-4">
+        <div class = "admin_store_show_store_title">登録日時</div>
+        <div class = "admin_store_show_store_content"><%= @store.created_at.strftime("%Y/%-m/%-d %H:%M:%S") %></div>
+      </div>
+
+      <div class = "admin_store_show_store mb-4">
+        <div class = "admin_store_show_store_title">登録者名</div>
+        <div class = "admin_store_show_store_content"><%= @store.user.name %></div>
+      </div>
+
+      <div class = "admin_store_show_store mb-4">
+        <div class = "admin_store_show_store_title">店舗名</div>
+        <div class = "admin_store_show_store_content"><%= @store.name %></div>
+      </div>
+
+      <div class = "admin_store_show_store mb-4">
+        <div class = "admin_store_show_store_title">店舗名（カナ）</div>
+        <div class = "admin_store_show_store_content"><%= @store.name_kana %></div>
+      </div>
+
+      <div class = "admin_store_show_info">
+
+        <div class = "admin_store_show_title mb-4">店舗概要</div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">郵便番号</div>
+          <div class = "admin_store_show_store_info_content">〒<%= @store.postal_code %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">都道府県</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.prefecture_i18n %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">住所</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.address %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">ビル・マンション名</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.building_and_apartment %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">電話番号</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.telephone_number %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">FAX番号</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.fax_number %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">営業時間</div>
+          <div class = "admin_store_show_store_info_content">
+            <%# cocoon箇所 %>
+            <%# 営業時間の存在確認 %>
+            <% if @store.opening_hours.count == 0 %>
+              <%# 営業時間なしの場合の表示 %>
+              営業時間情報なし
+            <% else %>
+              <%# 営業時間がある場合の表示 %>
+              <% @store.opening_hours.each do |opening_hour| %>
+                <% opening_hour_counter = 1 %>
+                <%= opening_hour.opening_time.strftime("%-H:%M") %> ～ <%= opening_hour.closing_time.strftime("%-H:%M") %>
+                <% if opening_hour_counter < @store.opening_hours.count %>
+                  &emsp;
+                  <% opening_hour_counter += 1 %>
+              <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">定休日</div>
+          <div class = "admin_store_show_store_info_content">
+            <% day_counter = 1 %>
+            <% @store.days.order("id").each do |day| %>
+              <%= day.name %>
+              <% if day_counter < @store.days.count %>
+                ・
+                <% day_counter += 1 %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">ジャンル</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.store_genre.name %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">価格帯</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.lowest_price_range %> ～ <%= @store.highest_price_range %>円</div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">最寄り駅</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.closest_station %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">代表者名</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.representative %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">代表者（カナ）</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.representative_kana %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">代表者メールアドレス</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.representative_email %></div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">開店ステータス</div>
+          <div class = "admin_store_show_store_info_content">
+            <% if @store.is_closed == true %>
+              <div style = "color: red">閉店</div>
+            <% else %>
+              <div style = "color: green">開店</div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class = "admin_store_show_store_info mb-4">
+          <div class = "admin_store_show_store_info_title">備考</div>
+          <div class = "admin_store_show_store_info_content"><%= @store.note %></div>
+        </div>
+
+        <div class = "admin_store_staff_title mb-4">担当者情報</div>
+
+        <div class = "admin_store_show_store_staff_info mb-4">
+          <div class = "admin_store_show_store_staff_info_title">担当者名</div>
+          <div class = "admin_store_show_store_staff_info_content"><%= @store.staff %></div>
+        </div>
+
+        <div class = "admin_store_show_store_staff_info mb-4">
+          <div class = "admin_store_show_store_staff_info_title">担当者TEL</div>
+          <div class = "admin_store_show_store_staff_info_content"><%= @store.staff_telephone_number %></div>
+        </div>
+
+        <div class = "admin_store_show_store_staff_info mb-4">
+          <div class = "admin_store_show_store_staff_info_title">担当者メールアドレス</div>
+          <div class = "admin_store_show_store_staff_info_content"><%= @store.staff_email %></div>
+        </div>
+      </div>
+    </div>
+
+    <div class = "col-5">
+
+      <div class = "admin_store_show_store_image mb-5">
+        <div class = "admin_store_show_store_image_title mb-2">店舗画像</div>
+        <div><%= image_tag @store.get_store_image("460x460!") %></div>
+      </div>
+
+      <div class = "admin_store_show_button_group mb-4">
+
+        <%= link_to edit_admin_store_path(@store.id), class: "btn btn-success admin_store_show_edit_button" do %>
+          編集する
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+
+[1mFrom:[0m /home/ec2-user/environment/RAMAP/app/models/store.rb:71 Store.search_for:
+
+    [1;34m63[0m: [32mdef[0m [1;36mself[0m.[1;34msearch_for[0m(search_store_params)
+    [1;34m64[0m: 
+    [1;34m65[0m:   [1;34m# 閉店した店舗は取り出し対象外[0m
+    [1;34m66[0m:   search_stores = where([35mis_closed[0m: [1;36mfalse[0m)
+    [1;34m67[0m: 
+    [1;34m68[0m: 
+    [1;34m69[0m:   [1;34m# 都道府県の完全一致（none_prefectureの場合はthrough)[0m
+    [1;34m70[0m:   [32munless[0m search_store_params[[33m:prefecture[0m] == [31m[1;31m'[0m[31mnone_prefecture[1;31m'[0m[31m[0m
+ => [1;34m71[0m:     binding.pry
+    [1;34m72[0m:     search_stores = search_stores.where([35mprefecture[0m: search_store_params[[33m:prefecture[0m])
+    [1;34m73[0m:   [32melse[0m
+    [1;34m74[0m:     [1;34m# 関数内で入力値に対して何も処理をしない場合、空データが返される[0m
+    [1;34m75[0m:     [1;34m# 入力値をそのまま返す[0m
+    [1;34m76[0m:     all
+    [1;34m77[0m:   [32mend[0m
+    [1;34m78[0m: 
+    [1;34m79[0m:   [1;34m# 予算が価格帯の中に入っているか確認[0m
+    [1;34m80[0m:   [32mif[0m search_store_params[[33m:budget[0m].to_i == [1;36mnil[0m
+    [1;34m81[0m:     search_stores = search_stores.where([35mlowest_price_range[0m: ..search_store_params[[33m:budget[0m].to_i).
+    [1;34m82[0m:     search_stores = search_stores.where([35mhighest_price_range[0m: search_store_params[[33m:budget[0m].to_i..)
+    [1;34m83[0m:   [32melse[0m
+    [1;34m84[0m:     [1;34m# 関数内で入力値に対して何も処理をしない場合、空データが返される[0m
+    [1;34m85[0m:     [1;34m# 入力値をそのまま返す[0m
+    [1;34m86[0m:     all
+    [1;34m87[0m:   [32mend[0m
+    [1;34m88[0m: 
+    [1;34m89[0m: [32mend[0m
+

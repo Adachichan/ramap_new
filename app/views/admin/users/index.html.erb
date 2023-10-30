@@ -1,0 +1,37 @@
+<div class = "admin_user_index px-4">
+
+  <h5>会員一覧</h5>
+
+  <div class = "admin_user_index_view">
+    <table class = "table table-borderless mb-4">
+      <thead>
+        <tr>
+          <th class = "th1">会員ID</th>
+          <th class = "th2">氏名</th>
+          <th class = "th3">メールアドレス</th>
+          <th class = "th4">会員ステータス</th>
+        </tr>
+      </thead>
+
+      <% @users.each do |user| %>
+        <tbody>
+          <tr>
+            <td class = "td1"><%= user.id %></td>
+            <td class = "td2"><%= link_to user.name, admin_user_path(user.id) %></td>
+            <td class = "td3"><%= user.email %></td>
+            <% if user.is_deleted == true %>
+              <td class = "td4" style = "color: red">退会</td>
+            <% else %>
+              <td class = "td4" style = "color: green">有効</td>
+            <% end %>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+
+    <div>
+      <%= paginate @users %>
+    </div>
+
+  </div>
+</div>

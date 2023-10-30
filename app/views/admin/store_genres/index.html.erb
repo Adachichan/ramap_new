@@ -1,0 +1,62 @@
+<div class = "admin_store_genre_new_and_index px-4">
+
+  <h5>ジャンル登録/一覧</h5>
+
+  <div class = "admin_store_genre_new_form">
+
+    <%= form_with model: @store_genre, url: admin_store_genres_path do |f| %>
+
+      <div class = "mb-5">
+        <div class = "field">
+          <div class = "admin_store_genre_new_label">
+            <%= f.label :name, "ジャンル名：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "admin_store_genre_new_text_field">
+            <%= f.text_field :name, placeholder: "ジャンル名を入力してください", class: "form-control" %>
+          </div>
+          <div class = "actions">
+            <%= f.submit "新規登録", class: "btn btn-success admin_store_genre_create_button" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- name_error -->
+          <%= render 'layouts/error_message', model: @store_genre, column: :name %>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+
+  <table class = "table table-borderless">
+    <thead>
+      <tr>
+        <th class = "th1">ジャンル</th>
+        <th class = "th2"></th>
+      </tr>
+    </thead>
+
+    <% @store_genres.each do |store_genre| %>
+      <tboby>
+        <tr>
+          <td class = "td1"><%= store_genre.name %></td>
+          <td class = "td2">
+            <div class = "admin_store_genre_button_group">
+              <%= link_to edit_admin_store_genre_path(store_genre.id), class: "btn btn-success admin_store_genre_index_edit_button" do %>
+                編集する
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      </tboby>
+    <% end %>
+
+  </table>
+
+  <div>
+    <%= paginate @store_genres %>
+  </div>
+
+</div>

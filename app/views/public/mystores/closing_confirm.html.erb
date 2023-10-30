@@ -1,0 +1,23 @@
+<div class = "public_mystore_closing px-4">
+
+  <h5>本当に閉店しますか？</h5>
+
+  <p>
+    閉店すると、店舗情報の内容がサイト上に一切表示されなくなります。</br>
+    万が一、再表示の必要がある場合は、管理者まで問い合わせください。
+  </p>
+
+  <div class = "public_mystore_closing_action mb-4">
+    <div class = "actions">
+      <%= link_to mystore_path(@mystore.id), class: "btn btn-primary public_mystore_not_closing_button" do %>
+        閉店しない
+      <% end %>
+    </div>
+
+    <div class = "actions">
+      <%= link_to close_path(@mystore.id), method: :patch, class: "btn btn-danger public_mystore_closing_button" do %>
+        閉店する
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,381 @@
+<div class = "admin_store_edit_form px-4">
+
+  <h5>店舗情報（編集）</h5>
+
+  <div class = "admin_store_edit_store_name mb-4">
+    <div class = "admin_store_edit_store_title">店舗ID</div>
+    <div class = "admin_store_edit_store_content"><%= @store.id %></div>
+  </div>
+
+  <div class = "admin_store_edit_store_name mb-4">
+    <div class = "admin_store_edit_store_title">登録日時</div>
+    <div class = "admin_store_edit_store_content"><%= @store.created_at.strftime("%Y/%-m/%-d %H:%M:%S") %></div>
+  </div>
+
+  <div class = "admin_store_edit_store_name mb-4">
+    <div class = "admin_store_edit_store_title">登録者名</div>
+    <div class = "admin_store_edit_store_content"><%= @store.user.name %></div>
+  </div>
+
+  <%= form_with model: @store, url: admin_store_path(@store.id), method: :patch do |store| %>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <div class = "admin_store_edit_label">
+          <%= store.label :name, "名前：" %>
+          &emsp;&ensp;
+          <span class = "cautionary_note">必須</span>
+        </div>
+        <div class = "admin_store_edit_text_field">
+          <%= store.text_field :name, placeholder: "名前を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- name_error -->
+        <%= render 'layouts/error_message', model: @store, column: :name %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <div class = "admin_store_edit_label">
+          <%= store.label :name_kana, "名前（カナ）：" %>
+          &emsp;&ensp;
+          <span class = "cautionary_note">必須</span>
+        </div>
+        <div class = "admin_store_edit_text_field">
+          <%= store.text_field :name_kana, placeholder: "名前（カナ）を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- name_kana_error -->
+        <%= render 'layouts/error_message', model: @store, column: :name_kana %>
+      </div>
+    </div>
+
+    <div class = "admin_store_info">
+
+      <div class = "admin_store_info_title mb-4">店舗概要</div>
+
+      <div class = "admin_store_info_overview">
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :postal_code, "郵便番号：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :postal_code, placeholder: "郵便番号を入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- postal_code_error -->
+            <%= render 'layouts/error_message', model: @store, column: :postal_code %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :prefecture, "都道府県：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_select_field">
+              <%= store.select :prefecture, Store.prefectures.keys.map {|k| [I18n.t("enums.store.prefecture.#{k}"), k]}, options = { include_blank: false }, placeholder: "都道府県", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- prefecture_error -->
+            <%= render 'layouts/error_message', model: @store, column: :prefecture %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :address, "住所：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :address, placeholder: "住所を入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- address_error -->
+            <%= render 'layouts/error_message', model: @store, column: :address %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :building_and_apartment, "ビル・マンション名：" %>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :building_and_apartment, placeholder: "ビル・マンション名を入力してください", class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :telephone_number, "電話番号：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :telephone_number, placeholder: "電話番号を入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- elephone_number_error -->
+            <%= render 'layouts/error_message', model: @store, column: :telephone_number %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :fax_number, "FAX番号：" %>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :fax_number, placeholder: "FAX番号を入力してください", class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <%# cocoonを用いたformのテンプレート %>
+            <%= render 'cocoon_form', store: store %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :day_ids, "定休日：" %>
+            </div>
+            <div class = "public_store_edit_checkbox_field">
+              <%= store.collection_check_boxes(:day_ids, Day.all, :id, :name) do |tag| %>
+                <%= tag.label(class: "mr-4") { tag.check_box(class: "mr-1") + tag.text } %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :store_image, "店舗画像：" %>
+            </div>
+            <div class = "admin_store_edit_file_field">
+              <%= store.file_field :store_image, accept: "image/*" %>
+            </div>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :store_genre_id, "ジャンル：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_select_field">
+              <%= store.collection_select :store_genre_id, StoreGenre.all, :id, :name,{prompt: "--選択してください--"}, {class: "form-control"} %>
+            </div>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :lowest_price_range, "価格帯：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_text_field admin_store_edit_price_range_field">
+              <%= store.text_field :lowest_price_range, placeholder: "最低価格を入力してください", class: "form-control" %>
+              &ensp;<span class = "pt-2">～</span>&ensp;
+              <%= store.text_field :highest_price_range, placeholder: "最高価格を入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- lowest_price_range_error -->
+            <%= render 'layouts/error_message', model: @store, column: :lowest_price_range %>
+            <!-- highest_price_range_error -->
+            <%= render 'layouts/error_message', model: @store, column: :highest_price_range %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :closest_station, "最寄り駅：" %>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :closest_station, placeholder: "最寄り駅を入力してください", class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :representative, "代表者名：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :representative, placeholder: "代表者名を入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- representative_error -->
+            <%= render 'layouts/error_message', model: @store, column: :representative %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :representative_kana, "代表者名（カナ）：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :representative_kana, placeholder: "代表者名（カナ）を入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- representative_kana_error -->
+            <%= render 'layouts/error_message', model: @store, column: :representative_kana %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :representative_email, "代表者メールアドレス：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.email_field :representative_email, placeholder: "代表者メールアドレスを入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- representative_kana_error -->
+            <%= render 'layouts/error_message', model: @store, column: :representative_email %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :is_closed, "開店ステータス：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_radiobutton_field">
+
+              <% if @store.is_closed == true %>
+                <%= store.radio_button :is_closed, :false %>
+                <%= store.label :is_closed, "開店", style: "margin-left: 4px; margin-bottom: 0px" %>
+                <%= store.radio_button :is_closed, :true, checked: "checked", style: "margin-left: 48px" %>
+                <%= store.label :is_closed, "閉店", style: "margin-left: 4px; margin-bottom: 0px" %>
+
+              <% else %>
+                <%= store.radio_button :is_closed, :false, checked: "checked" %>
+                <%= store.label :is_closed, "開店", style: "margin-left: 4px; margin-bottom: 0px" %>
+                <%= store.radio_button :is_closed, :true, style: "margin-left: 48px" %>
+                <%= store.label :is_closed, "閉店", style: "margin-left: 4px; margin-bottom: 0px" %>
+
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :note, "備考：" %>
+            </div>
+            <div class = "admin_store_edit_text_area_field">
+              <%= store.text_area :note, placeholder: "備考を入力してください", class: "form-control", style: "height: 100px" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class = "admin_store_staff_info_title mb-4">担当者情報</div>
+
+      <div class = "admin_store_staff_info_overview">
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :staff, "担当者名：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :staff, placeholder: "担当者名を入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- staff_error -->
+            <%= render 'layouts/error_message', model: @store, column: :staff %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :staff_telephone_number, "担当者電話番号：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_text_field">
+              <%= store.text_field :staff_telephone_number, placeholder: "担当者の電話番号を入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- staff_telephone_number_error -->
+            <%= render 'layouts/error_message', model: @store, column: :staff_telephone_number %>
+          </div>
+        </div>
+
+        <div class = "mb-4">
+          <div class = "field">
+            <div class = "admin_store_edit_label">
+              <%= store.label :staff_email, "担当者メールアドレス：" %>
+              &emsp;&ensp;
+              <span class = "cautionary_note">必須</span>
+            </div>
+            <div class = "admin_store_edit_email_field">
+              <%= store.email_field :staff_email, placeholder: "担当者メールアドレスを入力してください", class: "form-control" %>
+            </div>
+          </div>
+          <div class = "mt-2">
+            <!-- staff_email_error -->
+            <%= render 'layouts/error_message', model: @store, column: :staff_email %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class = "actions mb-4">
+      <%= store.submit '店舗情報を変更する', class: "btn btn-success admin_store_update_button", data: { confirm: '本当に変更しますか？' } %>
+    </div>
+
+  <% end %>
+
+</div>

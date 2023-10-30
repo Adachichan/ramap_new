@@ -1,0 +1,149 @@
+<%= form_with model: @user, url: user_registration_path do |f| %>
+  <%#= render "public/shared/error_messages", resource: resource %>
+
+  <div class = "public_signup_form px-4">
+
+    <h5>会員登録&emsp;&ensp;<span class = "cautionary_note">全項目入力必須</span></h5>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :name, "名前：", class: "public_signup_label" %>
+        <div class = "public_signup_text_field">
+          <%= f.text_field :name, placeholder: "名前を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- name_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :name %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :name_kana, "名前（カナ）：", class: "public_signup_label" %>
+        <div class = "public_signup_text_field">
+          <%= f.text_field :name_kana, placeholder: "名前（カナ）を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- name_kana_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :name_kana %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :nickname, "ニックネーム：", class: "public_signup_label" %>
+        <div class = "public_signup_text_field">
+          <%= f.text_field :nickname, placeholder: "ニックネームを入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- nickname_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :nickname %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :sex, "性別：", class: "public_signup_label" %>
+        <div class = "public_signup_radiobutton_field">
+          <%= f.collection_radio_buttons :sex, User.sexes_i18n, :first, :last do |b| %>
+            <%= b.label(class: "mr-5") { b.radio_button(class: "mr-2") + b.text } %>
+          <% end %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- sex_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :sex %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :postal_code, "郵便番号：", class: "public_signup_label" %>
+        <div class = "public_signup_text_field">
+          <%= f.text_field :postal_code, placeholder: "郵便番号を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- postal_code_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :postal_code %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :address, "住所：", class: "public_signup_label" %>
+        <div class = "public_signup_text_field">
+          <%= f.text_field :address, placeholder: "住所を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- address_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :address %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :telephone_number, "電話番号：", class: "public_signup_label" %>
+        <div class = "public_signup_text_field">
+          <%= f.text_field :telephone_number, placeholder: "電話番号を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- telephone_number_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :telephone_number %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :email, "メールアドレス：", class: "public_signup_label" %>
+        <div class = "public_signup_email_field">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", autocomplete: "email", placeholder: "メールアドレスを入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- email_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :email %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :password, "パスワード（8文字以上）：", class: "public_signup_label" %>
+        <div class = "public_signup_password_field">
+          <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- password_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :password %>
+      </div>
+    </div>
+
+    <div class = "mb-5">
+      <div class = "field">
+        <%= f.label :password_confirmation, "パスワード（確認用）：", class: "public_signup_label" %>
+        <div class = "public_signup_password_field">
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <%= render "public/shared/error_messages", resource: resource, column: :password_confirmation %>
+      </div>
+    </div>
+
+    <div class = "actions mb-4">
+      <%= f.submit "会員登録", class: "btn btn-success public_signup_button" %>
+    </div>
+
+    <div class = "mb-4">
+      ※登録済みの方は、 <%= render "public/shared/links" %>　よりログインしてください。
+    </div>
+
+  </div>
+
+<% end %>

@@ -1,0 +1,44 @@
+<div class = "public_mystore_new_and_edit_label opening_hour_label">
+  営業時間：
+  &emsp;&ensp;
+  <span class = "cautionary_note">必須</span>
+</div>
+<div class="details">
+  <%# トラックの追加フォームをするボタン %>
+  <%# 詳しいオプション : https://github.com/nathanvda/cocoon#link_to_add_association %>
+
+  <%= link_to_add_association '追加 (＋)',
+                              # form_withのformタグ変数
+                              mystore,
+                              # フォームのデータを追加するモデル名
+                              :opening_hours,
+                              # 追加するフォームの部分テンプレート
+                              partial: "mystore_opening_hour_fields",
+                              # オプション
+                              data: {
+                                # フォームを追加する場所の指定
+                                association_insertion_node: '#opening-hour-forms',
+                                # フォームを前後どの位置に追加するか。(初期値: before)
+                                association_insertion_method: 'after'
+                              },
+                              # フォームオブジェクトを指定する場合(初期値 : f)
+                              form_name: 'opening_hour',
+                              # 部分テンプレートに渡す変数があれば記述
+                              render_options: {
+                                locals: {
+                                  # 通常の部分テンプレートと同じ記述
+                                }
+                              }
+  %>
+
+  <hr>
+
+  <%# フォームを追加する場所。%>
+  <%# link_to_add_associationのassociation_insertion_nodeで指定 %>
+  <div id="opening-hour-forms">
+    <%= mystore.fields_for :opening_hours do |opening_hour| %>
+      <%= render 'mystore_opening_hour_fields', opening_hour: opening_hour %>
+    <% end %>
+  </div>
+
+</div>

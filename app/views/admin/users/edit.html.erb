@@ -1,0 +1,147 @@
+<div class = "admin_user_edit_form px-4">
+
+  <h5><%= @user.name %>さんの会員情報編集&emsp;&ensp;<span class = "cautionary_note">全項目入力必須</span></h5>
+
+  <div class = "admin_user_edit_id mb-4">
+    <div class = "admin_user_edit_id_title">会員ID</div>
+    <div class = "admin_user_edit_id_content"><%= @user.id %></div>
+  </div>
+
+  <%= form_with model: @user, url: admin_user_path(@user.id) do |f| %>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :name, "名前：", class: "admin_user_edit_label" %>
+        <div class = "admin_user_edit_text_field">
+          <%= f.text_field :name, placeholder: "名前を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- name_error -->
+        <%= render "public/shared/error_messages", resource: @user, column: :name %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :name_kana, "名前（カナ）：", class: "admin_user_edit_label" %>
+        <div class = "admin_user_edit_text_field">
+          <%= f.text_field :name_kana, placeholder: "名前（カナ）を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- name_kana_error -->
+        <%= render "public/shared/error_messages", resource: @user, column: :name_kana %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :nickname, "ニックネーム：", class: "admin_user_edit_label" %>
+        <div class = "admin_user_edit_text_field">
+          <%= f.text_field :nickname, placeholder: "ニックネームを入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- nickname_error -->
+        <%= render "public/shared/error_messages", resource: @user, column: :nickname %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :sex, "性別：", class: "admin_user_edit_label" %>
+        <div class = "admin_user_edit_radiobutton_field">
+          <%= f.collection_radio_buttons :sex, User.sexes_i18n, :first, :last do |b| %>
+            <%= b.label(class: "mr-5") { b.radio_button(class: "mr-2") + b.text } %>
+          <% end %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- sex_error -->
+        <%= render "public/shared/error_messages", resource: @user, column: :sex %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :postal_code, "郵便番号：", class: "admin_user_edit_label" %>
+        <div class = "admin_user_edit_text_field">
+          <%= f.text_field :postal_code, placeholder: "郵便番号を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- postal_code_error -->
+        <%= render "public/shared/error_messages", resource: @user, column: :postal_code %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :address, "住所：", class: "admin_user_edit_label" %>
+        <div class = "admin_user_edit_text_field">
+          <%= f.text_field :address, placeholder: "住所を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- address_error -->
+        <%= render "public/shared/error_messages", resource: @user, column: :address %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :telephone_number, "電話番号：", class: "admin_user_edit_label" %>
+        <div class = "admin_user_edit_text_field">
+          <%= f.text_field :telephone_number, placeholder: "電話番号を入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- telephone_number_error -->
+        <%= render "public/shared/error_messages", resource: @user, column: :telephone_number %>
+      </div>
+    </div>
+
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :email, "メールアドレス：", class: "admin_user_edit_label" %>
+        <div class = "admin_user_edit_email_field">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", autocomplete: "email", placeholder: "メールアドレスを入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- email_error -->
+        <%= render "public/shared/error_messages", resource: @user, column: :email %>
+      </div>
+    </div>
+
+    <div class = "mb-5">
+      <div class = "field">
+        <%= f.label :is_closed, "開店ステータス：", class: "admin_user_edit_label" %>
+        <div class = "admin_user_edit_radiobutton_field">
+
+          <% if @user.is_deleted == true %>
+            <%= f.radio_button :is_deleted, :false %>
+            <%= f.label :is_deleted, "有効", style: "margin-left: 4px; margin-bottom: 0px" %>
+            <%= f.radio_button :is_deleted, :true, checked: "checked", style: "margin-left: 48px" %>
+            <%= f.label :is_deleted, "退会", style: "margin-left: 4px; margin-bottom: 0px" %>
+
+          <% else %>
+            <%= f.radio_button :is_deleted, :false, checked: "checked" %>
+            <%= f.label :is_deleted, "有効", style: "margin-left: 4px; margin-bottom: 0px" %>
+            <%= f.radio_button :is_deleted, :true, style: "margin-left: 48px" %>
+            <%= f.label :is_deleted, "退会", style: "margin-left: 4px; margin-bottom: 0px" %>
+
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+    <div class = "actions mb-4">
+      <%= f.submit '変更を保存', class: "btn btn-success admin_user_update_button", data: { confirm: '本当に変更しますか？' } %>
+    </div>
+
+  <% end %>
+
+</div>

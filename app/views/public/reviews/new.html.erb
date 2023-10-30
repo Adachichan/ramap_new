@@ -1,0 +1,99 @@
+<div class = "public_review_new px-4">
+
+  <h5>口コミ投稿</h5>
+
+  <div class = "public_review_new_store">
+    <div class = "public_review_new_store_title">投稿店舗</div>
+    <div class = "publi_review_new_store_content"><%= @store.name %></div>
+  </div>
+
+  <div class = "public_review_new_form">
+
+    <%= form_with model: [@store, @review], url: store_reviews_path(@store.id) do |review| %>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_review_new_label">
+            <%= review.label :visit_date, "訪問日：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "public_review_new_date_field">
+            <%= review.date_field :visit_date, class: "form-control" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- visit_date_error -->
+          <%= render 'layouts/error_message', model: @review, column: :visit_date %>
+        </div>
+      </div>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_review_new_label">
+            <%= review.label :title, "タイトル：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "public_review_new_text_field">
+            <%= review.text_field :title, placeholder: "タイトルを入力してください", class: "form-control" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- title_error -->
+          <%= render 'layouts/error_message', model: @review, column: :title %>
+        </div>
+      </div>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_review_new_label">
+            <%= review.label :content, "本文：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "public_review_new_text_area">
+            <%= review.text_area :content, placeholder: "本文を入力してください", class: "form-control", style: "height: 100px" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- content_error -->
+          <%= render 'layouts/error_message', model: @review, column: :content %>
+        </div>
+      </div>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_review_new_label">
+            <%= review.label :score, "評価（100点満点）：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "public_review_new_number_field">
+            <%= review.number_field :score, placeholder: "点数を入力してください", class: "form-control" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- score_error -->
+          <%= render 'layouts/error_message', model: @review, column: :score %>
+        </div>
+      </div>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_review_new_label">
+            <%= review.label :review_image, "画像", class: "mb-0" %>
+          </div>
+          <div class = "public_review_new_file_field">
+            <%= review.file_field :review_image, accept: "image/*" %>
+          </div>
+        </div>
+      </div>
+
+      <div class = "actions mb-4">
+        <%= review.submit "投稿する", class: "btn btn-success public_review_create_button" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

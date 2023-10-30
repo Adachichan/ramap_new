@@ -1,0 +1,16 @@
+<%# 以下の.nested-fieldsは、必須です。 %>
+<div class="nested-fields">
+  <div class="time_field">
+    <%# link_to_add_associationのform_nameで指定した名前。(初期値 : f)  %>
+    <%= opening_hour.label :opening_time, '営業開始時間', class: "opening_hour_field_label" %>
+    <%= opening_hour.time_field :opening_time, class: "form-control" %>
+
+    <%# link_to_add_associationのform_nameで指定した名前。(初期値 : f)  %>
+    <%= opening_hour.label :closing_time, '営業終了時間', class: "opening_hour_field_label" %>
+    <%= opening_hour.time_field :closing_time, class: "form-control" %>
+  </div>
+  <div class="destroy_field">
+    <%= link_to_remove_association "削除 (－)", opening_hour %>
+  </div>
+  <hr>
+</div>

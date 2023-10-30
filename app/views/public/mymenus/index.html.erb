@@ -1,0 +1,106 @@
+<div class = "public_mymenu_new_and_index px-4">
+
+  <h5>メニュー登録/一覧</h5>
+
+  <div class = "public_mymenu_new_form">
+
+    <%= form_with model: [@mystore, @mymenu], url: mystore_mymenus_path(@mystore.id) do |mymenu| %>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_mymenu_new_label">
+            <%= mymenu.label :menu_image, "メニュー画像", class: "mb-0" %>
+          </div>
+          <div class = "public_mymenu_new_file_field">
+            <%= mymenu.file_field :menu_image, accept: "image/*" %>
+          </div>
+        </div>
+      </div>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_mymenu_new_label">
+            <%= mymenu.label :name, "メニュー名：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "public_mymenu_new_text_field">
+            <%= mymenu.text_field :name, placeholder: "メニュー名を入力してください", class: "form-control" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- name_error -->
+          <%= render 'layouts/error_message', model: @mymenu, column: :name %>
+        </div>
+      </div>
+
+      <div class = "mb-4">
+        <div class = "field">
+          <div class = "public_mymenu_new_label">
+            <%= mymenu.label :price, "値段(税抜)：", class: "mb-0" %>
+            &emsp;&ensp;
+            <span class = "cautionary_note">必須</span>
+          </div>
+          <div class = "public_mymenu_new_text_field">
+            <%= mymenu.text_field :price, placeholder: "価格(税抜)を入力してください", class: "form-control" %>
+          </div>
+        </div>
+        <div class = "mt-2">
+          <!-- price_error -->
+          <%= render 'layouts/error_message', model: @mymenu, column: :price %>
+        </div>
+      </div>
+
+      <div class = "actions mb-5">
+        <%= mymenu.submit "新規登録", class: "btn btn-success public_mymenu_create_button" %>
+      </div>
+
+    <% end %>
+
+  </div>
+
+  <div class = "public_mymenu_all_destroy mb-3">
+    <%= link_to destroy_all_mymenus_path(@mystore.id), method: :delete, class: "btn btn-danger public_mymenu_all_destroy_button" do %>
+      メニュー全削除
+    <% end %>
+  </div>
+
+  <table class = "table table-borderless">
+    <thead>
+      <tr>
+        <th class = "th1">No</th>
+        <th class = "th2">商品画像</th>
+        <th class = "th3">メニュー名</th>
+        <th class = "th4">価格（税抜）</th>
+        <th class = "th5"></th>
+      </tr>
+    </thead>
+
+    <% @mymenus.each_with_index do |mymenu,i| %>
+      <tbody>
+        <tr>
+          <td class = "td1"><%= i + 1 + @number %></td>
+          <td class = "td2"><%= image_tag mymenu.get_menu_image("200x200!") %></td>
+          <td class = "td3"><%= mymenu.name %></td>
+          <td class = "td4"><%= mymenu.price %>円</td>
+          <td class = "td5">
+            <div class = "public_mymenu_index_button_group">
+              <%= link_to edit_mystore_mymenu_path(@mystore.id, mymenu.id), class: "btn btn-success public_mymenu_index_edit_button" do %>
+                編集する
+              <% end %>
+
+              <%= link_to mystore_mymenu_path(@mystore.id, mymenu.id), method: :delete, class: "btn btn-danger public_mymenu_index_destroy_button" do %>
+                削除する
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+
+  <div>
+    <%= paginate @mymenus %>
+  </div>
+
+</div>

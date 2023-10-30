@@ -1,0 +1,118 @@
+<div class = "public_top px-4">
+
+  <%= form_with(scope: :search, url: search_path, method: :get, local: true) do |f| %>
+
+    <div class = "public_top_search_form mb-5">
+
+      <div class = "public_top_search_select_field">
+        <%= f.select :prefecture, Store.prefectures.keys.map {|k| [I18n.t("enums.store.prefecture.#{k}"), k]}, options = { include_blank: false }, placeholder: "都道府県", class: "form-control" %>
+      </div>
+
+      <div class = "public_top_search_text_field">
+        <%= f.text_field :store_name, placeholder: "店舗名", class: "form-control" %>
+      </div>
+
+      <div class = "public_top_search_select_field">
+        <%= f.select :search_method, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]), {prompt: "検索方法"}, {class: "form-control"} %>
+      </div>
+
+      <div class = "public_top_search_time_field">
+        <%= f.time_field :visit_time, placeholder: "訪問時間", class: "form-control" %>
+      </div>
+
+      <div class = "public_top_search_select_field">
+        <%= f.collection_select :visit_day_id, Day.all, :id, :name, {prompt: "訪問曜日"}, {class: "form-control"} %>
+      </div>
+
+      <div class = "public_top_search_number_field">
+        <%= f.number_field :budget, placeholder: "予算", class: "form-control" %>
+      </div>
+
+      <div class = "actions">
+        <%= f.submit "検索", class: "btn btn-outline-secondary public_top_search_button" %>
+      </div>
+
+    </div>
+
+  <% end %>
+
+  <div class = "public_top_map mb-5">
+    <h5>現在地周辺のラーメン店</h5>
+    <div id = 'map'></div>
+  </div>
+
+  <div class = "public_top_new_store mb-4">
+
+    <h5>新着店舗</h5>
+
+    <div class = "row">
+      <% @new_stores.each do |new_store| %>
+        <div class = "col-6 col-sm-3 public_top_new_store_show">
+          <div class = "public_top_new_store_name"><i class = "fa-solid fa-store icon_size"></i><%= new_store.name %></div>
+          <div class = "public_top_new_store_image"><%= image_tag new_store.get_store_image("200x200!") %></div>
+          <div class = "public_top_new_store_prefecture"><i class = "fa-solid fa-location-dot icon_size"></i><%= new_store.prefecture_i18n %></div>
+          <div class = "public_top_new_store_price_range"><i class = "fa-solid fa-coins icon_size"></i><%= new_store.lowest_price_range %> ～ <%= new_store.highest_price_range %>円</div>
+          <div class = "public_top_new_store_regular_holiday"><i class="fa-solid fa-store-slash icon_size"></i>
+            <% day_counter = 1 %>
+            <% new_store.days.order("id").each do |day| %>
+              <%= day.name %>
+              <% if day_counter < new_store.days.count %>
+                ・
+                <% day_counter += 1 %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+function initMap() {
+
+  // 変数の使用宣言
+  let map;
+  let markers = []
+  let infoWindows = []
+  // 定数の使用宣言＆controllerからインスタンス変数を受け取る
+  const stores = JSON.parse('<%== @stores_json || [] %>')
+
+  // 地図表示
+  map = new google.maps.Map(document.getElementById('map'), {
+    // 中心位置の設定（lat → 緯度、lng → 経度）
+    center: { lat: 34.6937, lng: 135.5021 },
+    // 地図の拡大縮小設定
+    zoom: 8,
+  });
+
+  // 受け取った店舗数分、処理を繰り返す
+  for (let i = 0; i < stores.length; i++) {
+
+    // 店舗情報を配列に格納する（1データ）
+    const store = stores[i]
+
+    // マーカーを表示する
+    markers[i] = new google.maps.Marker({
+      position: { lat: store.lat, lng: store.lng },
+      map: map
+    });
+
+    // マーカーをクリックした時に出る情報をセットする
+    infoWindows[i] = new google.maps.InfoWindow({
+      content: `
+        <a href="stores/${store.id}">${store.name}</a>
+      `
+    })
+
+    // マーカーをクリックした時の挙動を設定する
+    markers[i].addListener('click', () => {
+      infoWindows[i].open(map, markers[i])
+    })
+  }
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_JAVASCRIPT_API_KEY'] %>&callback=initMap" async defer></script>
