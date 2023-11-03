@@ -120,19 +120,10 @@
         <%= f.label :is_closed, "会員ステータス：", class: "admin_user_edit_label" %>
         <div class = "admin_user_edit_radiobutton_field">
 
-          <% if @user.is_deleted == true %>
-            <%= f.radio_button :is_deleted, :false %>
-            <%= f.label :is_deleted, "有効", style: "margin-left: 4px; margin-bottom: 0px" %>
-            <%= f.radio_button :is_deleted, :true, checked: "checked", style: "margin-left: 48px" %>
-            <%= f.label :is_deleted, "退会", style: "margin-left: 4px; margin-bottom: 0px" %>
-
-          <% else %>
-            <%= f.radio_button :is_deleted, :false, checked: "checked" %>
-            <%= f.label :is_deleted, "有効", style: "margin-left: 4px; margin-bottom: 0px" %>
-            <%= f.radio_button :is_deleted, :true, style: "margin-left: 48px" %>
-            <%= f.label :is_deleted, "退会", style: "margin-left: 4px; margin-bottom: 0px" %>
-
-          <% end %>
+          <%= f.radio_button :is_deleted, :false %>
+          <%= f.label :is_deleted, "有効", value: false, style: "margin-left: 4px; margin-bottom: 0px" %>
+          <%= f.radio_button :is_deleted, :true, style: "margin-left: 48px" %>
+          <%= f.label :is_deleted, "退会", value: true, style: "margin-left: 4px; margin-bottom: 0px" %>
 
         </div>
       </div>
