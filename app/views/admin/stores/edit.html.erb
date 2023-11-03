@@ -285,19 +285,10 @@
             </div>
             <div class = "admin_store_edit_radiobutton_field">
 
-              <% if @store.is_closed == true %>
-                <%= store.radio_button :is_closed, :false %>
-                <%= store.label :is_closed, "開店", style: "margin-left: 4px; margin-bottom: 0px" %>
-                <%= store.radio_button :is_closed, :true, checked: "checked", style: "margin-left: 48px" %>
-                <%= store.label :is_closed, "閉店", style: "margin-left: 4px; margin-bottom: 0px" %>
-
-              <% else %>
-                <%= store.radio_button :is_closed, :false, checked: "checked" %>
-                <%= store.label :is_closed, "開店", style: "margin-left: 4px; margin-bottom: 0px" %>
-                <%= store.radio_button :is_closed, :true, style: "margin-left: 48px" %>
-                <%= store.label :is_closed, "閉店", style: "margin-left: 4px; margin-bottom: 0px" %>
-
-              <% end %>
+              <%= store.radio_button :is_closed, :false %>
+              <%= store.label :is_closed, "開店", value: false, style: "margin-left: 4px; margin-bottom: 0px" %>
+              <%= store.radio_button :is_closed, :true, style: "margin-left: 48px" %>
+              <%= store.label :is_closed, "閉店", value: true, style: "margin-left: 4px; margin-bottom: 0px" %>
 
             </div>
           </div>
