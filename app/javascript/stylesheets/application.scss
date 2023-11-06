@@ -1205,6 +1205,10 @@ header{
         }
 
         img{
+          width: 480px;
+          height: 480px;
+          object-fit: contain;
+
           @media screen and (max-width:575px) {
             margin-left: 32px;
           }
