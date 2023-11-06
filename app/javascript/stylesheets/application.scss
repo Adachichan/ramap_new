@@ -286,6 +286,12 @@ header{
         @media screen and (max-width:575px) {
           padding-bottom: 30px;
         }
+        
+        img{
+          width: 330px;
+          height: 260px;
+          object-fit: contain;
+        }
       }
 
       .public_store_show_review_score_bar {
