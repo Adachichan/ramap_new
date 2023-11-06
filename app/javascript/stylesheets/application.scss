@@ -99,6 +99,7 @@ header{
 
     .public_top_new_store_image,.public_top_new_store_prefecture,.public_top_new_store_price_range,.public_top_new_store_regular_holiday{
       margin-bottom: 10px;
+
       .icon_size{
         width: 30px;
       }
@@ -184,6 +185,12 @@ header{
       .public_search_click_store_image{
         @media screen and (max-width:575px) {
           margin-bottom: 20px;
+        }
+
+        img{
+          width: 330px;
+          height: 260px;
+          object-fit: contain;
         }
       }
 
