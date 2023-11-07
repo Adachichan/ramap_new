@@ -354,7 +354,7 @@ header{
 
       .public_store_show_menu_image{
         margin-bottom: 5px;
-        
+
         img{
           width: 150px;
           height: 150px;
@@ -435,7 +435,7 @@ header{
 
   .public_menu_image{
     margin-bottom: 5px;
-    
+
     img{
       width: 180px;
       height: 180px;
@@ -1466,7 +1466,6 @@ header{
         padding: 9px;
 
         img{
-
           width: 200px;
           height: 200px;
           object-fit: contain;
@@ -1475,7 +1474,6 @@ header{
             width: 90px;
             height: 90px;
           }
-
         }
 
         @media screen and (max-width:575px) {
@@ -1755,6 +1753,12 @@ header{
         .public_review_index_store_image{
           text-align: right;
 
+          img{
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+          }
+
           @media screen and (max-width:575px) {
             text-align: left;
             margin-bottom: 6px;
@@ -1884,6 +1888,12 @@ header{
 
         .public_review_show_store_image{
           text-align: right;
+          
+          img{
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+          }
 
           @media screen and (max-width:575px) {
             text-align: left;
