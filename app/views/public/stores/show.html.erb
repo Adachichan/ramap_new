@@ -64,7 +64,7 @@
         <div class = "row">
           <% @menus.each do |menu| %>
             <div class = "col-6 col-sm-4 public_store_show_menu">
-              <div class = "public_store_show_menu_image"><%= image_tag menu.get_menu_image("150x150!") %></div>
+              <div class = "public_store_show_menu_image"><%= image_tag menu.get_menu_image %></div>
               <div class = "public_stSore_show_menu_name"><%= menu.name %></div>
               <div class = "public_store_show_menu_price"><%= number_to_currency(menu.with_tax_price, strip_insignificant_zeros: true) %>&ensp;(<%= number_to_currency(menu.price, strip_insignificant_zeros: true) %>)</div>
             </div>

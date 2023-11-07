@@ -354,6 +354,12 @@ header{
 
       .public_store_show_menu_image{
         margin-bottom: 5px;
+        
+        img{
+          width: 150px;
+          height: 150px;
+          object-fit: contain;
+        }
       }
 
       .public_store_show_menu_link{
