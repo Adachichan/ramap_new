@@ -429,6 +429,12 @@ header{
 
   .public_menu_image{
     margin-bottom: 5px;
+    
+    img{
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+    }
   }
 
   .public_menu_index_link{

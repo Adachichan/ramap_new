@@ -5,7 +5,7 @@
   <div class = "row">
     <% @menus.each do |menu| %>
       <div class = "col-6 col-sm-3 public_menu_detail">
-        <div class = "public_menu_image"><%= image_tag menu.get_menu_image("180x180!") %></div>
+        <div class = "public_menu_image"><%= image_tag menu.get_menu_image %></div>
         <div class = "public_menu_name"><%= menu.name %></div>
         <div class = "public_menu_price"><%= number_to_currency(menu.with_tax_price, strip_insignificant_zeros: true) %>&ensp;(<%= number_to_currency(menu.price, strip_insignificant_zeros: true) %>)</div>
       </div>
