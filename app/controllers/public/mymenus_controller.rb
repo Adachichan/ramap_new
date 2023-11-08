@@ -5,6 +5,12 @@ class Public::MymenusController < ApplicationController
 
   def index
     @mystore = Store.find(params[:mystore_id])
+
+    # 他ユーザーからのアクセスを制限する
+    unless @mystore.user_id == current_user.id
+      redirect_to mystores_path
+    end
+
     @mymenu = Menu.new
     # 店舗ごとの全メニューを取得
     @mymenus = @mystore.menus.page(params[:page]).per(10)
@@ -26,6 +32,12 @@ class Public::MymenusController < ApplicationController
   def create
     @mymenu = Menu.new(mymenu_params)
     @mymenu.store_id = params[:mystore_id]
+
+    # 他ユーザーからのアクセスを制限する
+    unless @mymenu.store.user_id == current_user.id
+      redirect_to mystores_path
+    end
+
     # 店舗ジャンルの保存可否
     if @mymenu.save
       redirect_to mystore_mymenus_path(@mymenu.store_id)
@@ -60,6 +72,12 @@ class Public::MymenusController < ApplicationController
 
   def destroy_all
     mystore = Store.find(params[:mystore_id])
+
+    # 他ユーザーからのアクセスを制限する
+    unless mystore.user_id == current_user.id
+      redirect_to mystores_path
+    end
+
     mystore.menus.destroy_all
     redirect_to mystore_mymenus_path(mystore.id)
   end
@@ -72,6 +90,11 @@ class Public::MymenusController < ApplicationController
 
   def identify_mymenu
     @mymenu = Menu.find(params[:id])
+
+    # 他ユーザーからのアクセスを制限する
+    unless @mymenu.store.user_id == current_user.id
+      redirect_to mystores_path
+    end
   end
 
 end
