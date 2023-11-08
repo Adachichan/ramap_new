@@ -60,7 +60,7 @@
   </div>
 
   <div class = "public_mymenu_all_destroy mb-3">
-    <%= link_to destroy_all_mymenus_path(@mystore.id), method: :delete, class: "btn btn-danger public_mymenu_all_destroy_button" do %>
+    <%= link_to destroy_all_mymenus_path(@mystore.id), method: :delete, class: "btn btn-danger public_mymenu_all_destroy_button", data: { confirm: '本当に全て削除しますか？' } do %>
       メニュー全削除
     <% end %>
   </div>
@@ -89,7 +89,7 @@
                 編集する
               <% end %>
 
-              <%= link_to mystore_mymenu_path(@mystore.id, mymenu.id), method: :delete, class: "btn btn-danger public_mymenu_index_destroy_button" do %>
+              <%= link_to mystore_mymenu_path(@mystore.id, mymenu.id), method: :delete, class: "btn btn-danger public_mymenu_index_destroy_button", data: { confirm: '本当に削除しますか？' } do %>
                 削除する
               <% end %>
             </div>
