@@ -77,6 +77,11 @@ class Public::MystoresController < ApplicationController
 
   def identify_mystore
     @mystore = Store.find(params[:id])
+
+    # 他ユーザーからのアクセスを制限する
+    unless @mystore.user_id == current_user.id
+      redirect_to mystores_path
+    end
   end
 
 end
