@@ -91,7 +91,7 @@
       </div>
 
       <div class = "actions mb-4">
-        <%= review.submit "投稿する", class: "btn btn-success public_review_create_button" %>
+        <%= review.submit "投稿する", class: "btn btn-success public_review_create_button", data: { confirm: '投稿後の取り消しは出来ません。この内容でよろしいですか。' } %>
       </div>
 
     <% end %>
