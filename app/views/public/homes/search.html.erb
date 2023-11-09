@@ -46,9 +46,19 @@
       <div class = "public_search_click_store mt-5 mb-4">
         <h5>店舗情報</h5>
         <div class = "row">
-          <div class = "public_search_click_store_image col-sm-4"><%= image_tag search_store.get_store_image %></div>
+          <div class = "public_search_click_store_image col-sm-4">
+            <%= link_to store_path(search_store.id) do %>
+              <%= image_tag search_store.get_store_image %>
+            <% end %>
+          </div>
+
           <div class = "public_search_click_store_overview col-sm-8">
-            <div class = "public_search_click_store_name"><%= search_store.name %></div>
+            <div class = "public_search_click_store_name">
+              <%= link_to store_path(search_store.id) do %>
+                <%= search_store.name %>
+              <% end %>
+            </div>
+
             <div class = "public_search_click_store_prefecture"><%= search_store.prefecture_i18n %></div>
             <div class = "public_search_click_store_closest_station"><%= search_store.store_genre.name %> / <%= search_store.closest_station %></div>
             <% if search_store.reviews.length > 0 %>
