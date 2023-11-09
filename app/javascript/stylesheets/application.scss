@@ -91,23 +91,27 @@ header{
     .public_top_new_store_name{
       font-size: 18px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       .icon_size{
         width: 35px;
       }
     }
 
-    .public_top_new_store_image,.public_top_new_store_prefecture,.public_top_new_store_price_range,.public_top_new_store_regular_holiday{
+    .public_top_new_store_image{
+      margin-bottom: 15px;
+
+      img{
+        width: 230px;
+        height: 230px;
+        object-fit: contain;
+      }
+    }
+
+    .public_top_new_store_prefecture,.public_top_new_store_price_range,.public_top_new_store_regular_holiday{
       margin-bottom: 10px;
 
       .icon_size{
         width: 30px;
-      }
-
-      img{
-        width: 200px;
-        height: 200px;
-        object-fit: contain;
       }
     }
   }

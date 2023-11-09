@@ -48,8 +48,20 @@
     <div class = "row">
       <% @new_stores.each do |new_store| %>
         <div class = "col-6 col-sm-3 public_top_new_store_show">
-          <div class = "public_top_new_store_name"><i class = "fa-solid fa-store icon_size"></i><%= new_store.name %></div>
-          <div class = "public_top_new_store_image"><%= image_tag new_store.get_store_image %></div>
+
+          <div class = "public_top_new_store_name">
+            <%= link_to store_path(new_store.id) do %>
+              <i class = "fa-solid fa-store icon_size"></i><%= new_store.name %>
+            <% end %>
+          </div>
+
+          <div class = "public_top_new_store_image">
+            <%= link_to store_path(new_store.id) do %>
+              <%= image_tag new_store.get_store_image %>
+            <% end %>
+          </div>
+
+
           <div class = "public_top_new_store_prefecture"><i class = "fa-solid fa-location-dot icon_size"></i><%= new_store.prefecture_i18n %></div>
           <div class = "public_top_new_store_price_range"><i class = "fa-solid fa-coins icon_size"></i><%= new_store.lowest_price_range %> ～ <%= new_store.highest_price_range %>円</div>
           <div class = "public_top_new_store_regular_holiday"><i class="fa-solid fa-store-slash icon_size"></i>
