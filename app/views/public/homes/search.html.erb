@@ -73,7 +73,12 @@
                 </div>
               </div>
             <% end %>
-            <div class = "public_search_click_store_review"><i class="fa-regular fa-comment icon_size"></i><%= search_store.reviews.count %>件</div>
+            <div class = "public_search_click_store_review">
+              <%= link_to store_reviews_path(search_store.id) do %>
+                <i class="fa-regular fa-comment icon_size"></i><%= search_store.reviews.count %>件
+              <% end %>
+            </div>
+
             <div class = "public_search_click_store_price_range"><i class = "fa-solid fa-coins icon_size"></i><%= search_store.lowest_price_range %> ～ <%= search_store.highest_price_range %>円</div>
             <div class = "public_search_click_store_opening_hour"><i class="fa-regular fa-clock icon_size"></i>
               <%# cocoon箇所 %>
