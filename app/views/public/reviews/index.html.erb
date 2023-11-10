@@ -73,7 +73,9 @@
 
         <div class = "col-sm-3">
           <div class = "public_review_index_store_image">
-            <div><%= image_tag review.get_review_image %></div>
+            <%= link_to store_review_path(@store.id, review.id) do %>
+              <%= image_tag review.get_review_image %>
+            <% end %>
           </div>
         </div>
 
