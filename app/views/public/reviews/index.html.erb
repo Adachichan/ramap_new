@@ -5,11 +5,14 @@
 
     <!-- ログインしていない場合は口コミ投稿不可 -->
     <% if user_signed_in? %>
-      <div>
-        <%= link_to new_store_review_path(@store.id), class: "btn btn-outline-dark public_review_index_new_button" do %>
-          口コミ投稿
-        <% end %>
-      </div>
+      <!-- ログインユーザーが自身で登録した店舗に対しては口コミ投稿不可 -->
+      <% if current_user.name != @store.user.name %>
+        <div>
+          <%= link_to new_store_review_path(@store.id), class: "btn btn-outline-dark public_review_index_new_button" do %>
+            口コミ投稿
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 
@@ -62,9 +65,14 @@
           <div class = "public_review_index_content_favorite_group">
             <!-- ログインしていない場合はお気に入りクリック不可 -->
             <% if user_signed_in? %>
-              <div id = "favorite_buttons_<%= review.id %>">
-                <%= render "favorite", review: review %>
-              </div>
+              <!-- ログインユーザーが自身で投稿した口コミに対してはお気に入りクリック不可 -->
+              <% if current_user.name != review.name %>
+                <div id = "favorite_buttons_<%= review.id %>">
+                  <%= render "favorite", review: review %>
+                </div>
+              <% else %>
+                <span><i class = "fa-solid fa-heart fa-beat fa-lg" style = "color: #ff0000; width: 30px"></i><%= review.favorites.count %> いいね<span>
+              <% end %>
             <% else %>
               <span><i class = "fa-solid fa-heart fa-beat fa-lg" style = "color: #ff0000; width: 30px"></i><%= review.favorites.count %> いいね<span>
             <% end %>
