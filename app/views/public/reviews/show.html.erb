@@ -49,9 +49,14 @@
         <div class = "public_review_show_content_favorite_group">
           <!-- ログインしていない場合はお気に入りクリック不可 -->
           <% if user_signed_in? %>
-            <div id = "favorite_buttons_<%= @review.id %>">
-              <%= render "public/reviews/favorite", review: @review %>
-            </div>
+            <!-- ログインユーザーが自身で投稿した口コミに対してはお気に入りクリック不可 -->
+            <% if current_user.name != @review.name %>
+              <div id = "favorite_buttons_<%= @review.id %>">
+                <%= render "public/reviews/favorite", review: @review %>
+              </div>
+            <% else %>
+              <span><i class = "fa-solid fa-heart fa-beat fa-lg" style = "color: #ff0000; width: 30px"></i><%= @review.favorites.count %> いいね<span>
+            <% end %>
           <% else %>
             <span><i class = "fa-solid fa-heart fa-beat fa-lg" style = "color: #ff0000; width: 30px"></i><%= @review.favorites.count %> いいね<span>
           <% end %>
@@ -72,30 +77,33 @@
 
   <!-- ログインしていない場合はコメント投稿不可 -->
   <% if user_signed_in? %>
-    <div class = "public_review_show_comment_new_form mb-5">
+    <!-- ログインユーザーが自身で投稿した口コミに対してはコメント投稿不可 -->
+    <% if current_user.name != @review.name %>
+      <div class = "public_review_show_comment_new_form mb-5">
 
-      <%= form_with model: [@review, @comment], url: review_comments_path(@review.id) do |f| %>
+        <%= form_with model: [@review, @comment], url: review_comments_path(@review.id) do |f| %>
 
-        <div class = "mb-4">
-          <div class = "field">
-            <div class = "public_review_show_comment_new_label">
-              <%= f.label :content, "コメント投稿：", class: "mb-0" %>
+          <div class = "mb-4">
+            <div class = "field">
+              <div class = "public_review_show_comment_new_label">
+                <%= f.label :content, "コメント投稿：", class: "mb-0" %>
+              </div>
+              <div class = "public_review_show_comment_new_text_area">
+                <%= f.text_area :content, placeholder: "コメントを入力してください", class: "form-control", style: "height: 100px" %>
+              </div>
+              <div class = "actions">
+                <%= f.submit "投稿する", class: "btn btn-primary public_review_show_comment_create_button", data: { confirm: '投稿後の取り消しは出来ません。この内容でよろしいですか。' } %>
+              </div>
             </div>
-            <div class = "public_review_show_comment_new_text_area">
-              <%= f.text_area :content, placeholder: "コメントを入力してください", class: "form-control", style: "height: 100px" %>
-            </div>
-            <div class = "actions">
-              <%= f.submit "投稿する", class: "btn btn-primary public_review_show_comment_create_button", data: { confirm: '投稿後の取り消しは出来ません。この内容でよろしいですか。' } %>
+            <div class = "mt-2">
+              <!-- content_error -->
+              <%= render 'layouts/error_message', model: @comment, column: :content %>
             </div>
           </div>
-          <div class = "mt-2">
-            <!-- content_error -->
-            <%= render 'layouts/error_message', model: @comment, column: :content %>
-          </div>
-        </div>
 
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 
   <div class = "public_review_show_2">
