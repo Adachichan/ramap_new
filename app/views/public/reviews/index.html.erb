@@ -6,7 +6,7 @@
     <!-- ログインしていない場合は口コミ投稿不可 -->
     <% if user_signed_in? %>
       <!-- ログインユーザーが自身で登録した店舗に対しては口コミ投稿不可 -->
-      <% if current_user.name != @store.user.name %>
+      <% if current_user.id != @store.user.id %>
         <div>
           <%= link_to new_store_review_path(@store.id), class: "btn btn-outline-dark public_review_index_new_button" do %>
             口コミ投稿
@@ -66,7 +66,7 @@
             <!-- ログインしていない場合はお気に入りクリック不可 -->
             <% if user_signed_in? %>
               <!-- ログインユーザーが自身で投稿した口コミに対してはお気に入りクリック不可 -->
-              <% if current_user.name != review.name %>
+              <% if current_user.id != review.id %>
                 <div id = "favorite_buttons_<%= review.id %>">
                   <%= render "favorite", review: review %>
                 </div>
