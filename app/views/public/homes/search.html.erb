@@ -140,7 +140,7 @@ function initMap() {
     // 中心位置の設定（lat → 緯度、lng → 経度）
     center: { lat: 34.6937, lng: 135.5021 },
     // 地図の拡大縮小設定
-    zoom: 8,
+    zoom: 12,
   });
 
   // 受け取った店舗数分、処理を繰り返す
@@ -161,7 +161,7 @@ function initMap() {
       content: `
         <a href="stores/${search_store.id}">${search_store.name}</a>
       `
-    })
+    });
 
     // マーカーをクリックした時の挙動
     markers[i].addListener('click', () => {
@@ -178,8 +178,7 @@ function initMap() {
           $('#store_' + search_stores[j].id).addClass('hidden_store');
         }
       }
-
-    })
+    });
   }
 }
 
