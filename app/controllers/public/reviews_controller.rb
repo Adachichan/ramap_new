@@ -4,6 +4,12 @@ class Public::ReviewsController < ApplicationController
 
   def new
     @store = Store.find(params[:store_id])
+
+    # 自身が投稿した店舗に対する投稿画面へのアクセスを防止する（URL直接入力）
+    if @store.user_id == current_user.id
+      redirect_to store_reviews_path(@store.id)
+    end
+
     @review = Review.new
   end
 
