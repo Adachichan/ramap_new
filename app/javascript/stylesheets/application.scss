@@ -3748,3 +3748,63 @@ header{
   border: 2px solid red;
   display: inline-block;
 }
+
+//2023/11/28追記
+// user_password_new
+.public_new_password_form {
+  width: 750px;
+  margin: 0 auto;
+
+  @media screen and (max-width:575px) {
+    width: 575px;
+  }
+
+  h5{
+    margin-left: -50px;
+    @media screen and (max-width:840px) {
+      margin-left: 0px;
+    }
+  }
+
+  .field{
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width:575px) {
+      display: block;
+    }
+  }
+
+  .public_new_password_label{
+    width: 14em;
+    white-space: nowrap;
+    margin-bottom: 0px;
+    @media screen and (max-width:575px) {
+      margin-bottom: 12px;
+    }
+  }
+
+  .public_new_password_email_field{
+    flex-grow: 1;
+
+    @media screen and (max-width:575px) {
+      width: 520px;
+    }
+  }
+
+  .public_new_password_button{
+    margin-left: 12em;
+    width: 300px;
+
+    @media screen and (max-width:575px) {
+      margin-left: 0;
+    }
+  }
+
+  h5,.public_new_password_label,.public_new_password_button{
+    font-weight: 700;
+  }
+}
+
+
+
