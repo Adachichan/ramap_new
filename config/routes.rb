@@ -17,9 +17,10 @@ Rails.application.routes.draw do
   end
 
   # URL：/users/sign_in
-  devise_for :users, skip: [:passwords], controllers: {
+  devise_for :users, controllers: {
     registrations: "public/registrations",
-    sessions: 'public/sessions'
+    sessions: 'public/sessions',
+    passwords: 'public/passwords' # 2023/11/28追記
   }
 
   scope module: :public do
