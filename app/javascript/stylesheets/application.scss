@@ -3750,7 +3750,7 @@ header{
 }
 
 //2023/11/28追記
-// user_password_new
+// user_new_password
 .public_new_password_form {
   width: 750px;
   margin: 0 auto;
@@ -3806,5 +3806,59 @@ header{
   }
 }
 
+//2023/11/29追記
+// user_exit_password
+.public_exit_password_form {
+  width: 750px;
+  margin: 0 auto;
 
+  @media screen and (max-width:575px) {
+    width: 575px;
+  }
 
+  h5{
+    margin-left: -50px;
+    @media screen and (max-width:840px) {
+      margin-left: 0px;
+    }
+  }
+
+  .field{
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width:575px) {
+      display: block;
+    }
+  }
+
+  .public_exit_password_label{
+    width: 17em;
+    white-space: nowrap;
+    margin-bottom: 0px;
+    @media screen and (max-width:575px) {
+      margin-bottom: 12px;
+    }
+  }
+
+  .public_exit_password_field{
+    flex-grow: 1;
+
+    @media screen and (max-width:575px) {
+      width: 520px;
+    }
+  }
+
+  .public_change_password_button{
+    margin-left: 12em;
+    width: 300px;
+
+    @media screen and (max-width:575px) {
+      margin-left: 0;
+    }
+  }
+
+  h5,.public_exit_password_label,.public_change_password_button{
+    font-weight: 700;
+  }
+}

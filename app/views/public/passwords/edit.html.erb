@@ -1,25 +1,33 @@
-<h2>Change your password</h2>
+<%= form_with model: @user, url: user_password_path, method: :patch, class: 'registration-main', local: true do |f| %>
+  <%#= render "public/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "publics/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+  <div class = "public_exit_password_form px-4">
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+    <h5 class = "mb-4">パスワードの再設定</h5>
+
+    <div class = "field mb-4">
+      <%= f.label :password, "新しいパスワード（8文字以上）：", class: "public_exit_password_label" %>
+      <div class = "public_exit_password_field">
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class = "field mb-4">
+      <%= f.label :password, "新しいパスワード（確認用）：", class: "public_exit_password_label" %>
+      <div class = "public_exit_password_field">
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+      </div>
+    </div>
+
+    <%# 隠しフィールドでトークンもパラメーターで送る。
+    こうすることでDBに保存されているリセットトークンと
+    ここから送られたトークンが一致するか確認している。 %>
+    <%= f.hidden_field :reset_password_token %>
+
+    <div class = "actions mb-4">
+      <%= f.submit "パスワード変更", class: "btn btn-success public_change_password_button" %>
+    </div>
+
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
 <% end %>
-
-<%= render "publics/shared/links" %>
