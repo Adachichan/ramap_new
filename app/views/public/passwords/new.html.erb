@@ -5,10 +5,16 @@
 
     <h5 class = "mb-4">パスワードの再設定</h5>
 
-    <div class = "field mb-4">
-      <%= f.label :email, "ご登録のメールアドレス：", class: "public_new_password_label" %>
-      <div class = "public_new_password_email_field">
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレスを入力してください", class: "form-control" %>
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :email, "ご登録のメールアドレス：", class: "public_new_password_label" %>
+        <div class = "public_new_password_email_field">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレスを入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- email_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :email %>
       </div>
     </div>
 

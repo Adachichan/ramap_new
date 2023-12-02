@@ -3792,6 +3792,20 @@ header{
     }
   }
 
+  .error_explanation{
+    align-items: center;
+    display: block;
+    margin-left: 15em;
+    @media screen and (max-width:575px) {
+      margin-left: 0;
+    }
+
+    ul{
+      list-style: none;
+      padding-left: 0;
+    }
+  }
+
   .public_new_password_button{
     margin-left: 12em;
     width: 300px;
