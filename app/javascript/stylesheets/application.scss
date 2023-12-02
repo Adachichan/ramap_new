@@ -3795,7 +3795,7 @@ header{
   .error_explanation{
     align-items: center;
     display: block;
-    margin-left: 15em;
+    margin-left: 14em;
     @media screen and (max-width:575px) {
       margin-left: 0;
     }
@@ -3860,6 +3860,20 @@ header{
 
     @media screen and (max-width:575px) {
       width: 520px;
+    }
+  }
+
+  .error_explanation{
+    align-items: center;
+    display: block;
+    margin-left: 17em;
+    @media screen and (max-width:575px) {
+      margin-left: 0;
+    }
+
+    ul{
+      list-style: none;
+      padding-left: 0;
     }
   }
 

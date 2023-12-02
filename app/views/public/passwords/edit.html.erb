@@ -5,17 +5,29 @@
 
     <h5 class = "mb-4">パスワードの再設定</h5>
 
-    <div class = "field mb-4">
-      <%= f.label :password, "新しいパスワード（8文字以上）：", class: "public_exit_password_label" %>
-      <div class = "public_exit_password_field">
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :password, "新しいパスワード（8文字以上）：", class: "public_exit_password_label" %>
+        <div class = "public_exit_password_field">
+          <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- password_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :password %>
       </div>
     </div>
 
-    <div class = "field mb-4">
-      <%= f.label :password, "新しいパスワード（確認用）：", class: "public_exit_password_label" %>
-      <div class = "public_exit_password_field">
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+    <div class = "mb-4">
+      <div class = "field">
+        <%= f.label :password, "新しいパスワード（確認用）：", class: "public_exit_password_label" %>
+        <div class = "public_exit_password_field">
+          <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力してください", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "mt-2">
+        <!-- password_error -->
+        <%= render "public/shared/error_messages", resource: resource, column: :password %>
       </div>
     </div>
 
