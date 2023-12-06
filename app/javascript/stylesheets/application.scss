@@ -18,6 +18,25 @@ header{
   }
 }
 
+// flash-message
+.flash-message {
+  border-radius: 5px;
+  padding: 16px 24px;
+  margin: -48px 0px 0px 0px;
+}
+
+.flash-message.notice {
+  background-color: #CCFFCC;
+  color: #009900;
+  border: solid 1px #009900;
+}
+
+.flash-message.alert {
+  background-color: #ffd4d1;
+  color: #930403;
+  border: solid 1px #930403;
+}
+
 // public_top_view
 .public_top{
   width: 1200px;
@@ -1151,6 +1170,10 @@ header{
 }
 
 // public_mystore_show
+.alert-success{
+  margin-top: -48px;
+}
+
 .public_mystore_show{
   width: 1200px;
   margin: 0 auto;

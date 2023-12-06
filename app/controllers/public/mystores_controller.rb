@@ -14,9 +14,13 @@ class Public::MystoresController < ApplicationController
 
     # 店舗情報の保存可否
     if @mystore.save
+      # 2023/12/06追加（フラッシュメッセージ）
+      flash[:notice] = "登録に成功しました。"
       redirect_to mystore_path(@mystore.id)
     else
       @mystore.opening_hours.build
+      # 2023/12/06追加（フラッシュメッセージ）
+      flash.now[:alert] = "登録に失敗しました。" 
       render :new
     end
   end
