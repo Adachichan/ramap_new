@@ -18,23 +18,10 @@ header{
   }
 }
 
-// flash-message
-.flash-message {
+// flash-message(alert)
+.alert {
   border-radius: 5px;
-  padding: 16px 24px;
   margin: -48px 0px 24px 0px;
-}
-
-.flash-message.notice {
-  background-color: #CCFFCC;
-  color: #009900;
-  border: solid 1px #009900;
-}
-
-.flash-message.alert {
-  background-color: #ffd4d1;
-  color: #930403;
-  border: solid 1px #930403;
 }
 
 // public_top_view

@@ -95,7 +95,11 @@
 
     <main class = "mt-5">
       <% flash.each do |message_type, message| %>
-        <div class="flash-message <%= message_type %>"><%= message %></div>
+        <% if message_type == "notice" %>
+          <div class = "alert alert-success" role = "alert"><%= message %></div>
+        <% elsif message_type == "alert" %>
+          <div class = "alert alert-danger" role = "alert"><%= message %></div>
+        <% end %>
       <% end %>
       <%= yield %>
     </main>
