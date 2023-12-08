@@ -1,18 +1,28 @@
 # frozen_string_literal: true
 
 class Public::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, if: :devise_controller?
+  before_action :configure_sign_up_params, except: [:new, :create], if: :devise_controller?
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    @user = User.new
+  end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    @user = User.new(create_user_params)
+    if @user.save
+      sign_in(@user)
+      # 2023/12/08追加（フラッシュメッセージ）
+      flash[:notice] = "アカウント登録が完了しました。"
+      redirect_to mypage_path
+    else
+      # 2023/12/08追加（フラッシュメッセージ）
+      flash.now[:alert] = "アカウント登録に失敗しました。"
+      render :new
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -51,13 +61,19 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  def after_sign_up_path_for(resource)
-    mypage_path
-  end
+  # def after_sign_up_path_for(resource)
+  #   mypage_path
+  # end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+  def create_user_params
+    params.require(:user).permit(:name, :name_kana, :nickname, :postal_code, :address, :telephone_number, :sex, :email, :password, :password_confirmation)
+  end
 
 end
