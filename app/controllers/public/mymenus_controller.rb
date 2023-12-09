@@ -40,6 +40,8 @@ class Public::MymenusController < ApplicationController
 
     # 店舗ジャンルの保存可否
     if @mymenu.save
+      # 2023/12/09追加（フラッシュメッセージ）
+      flash[:notice] = "登録に成功しました。"
       redirect_to mystore_mymenus_path(@mymenu.store_id)
     else
       @mystore = Store.find(params[:mystore_id])
@@ -49,6 +51,8 @@ class Public::MymenusController < ApplicationController
       else
         @number = 0
       end
+      # 2023/12/09追加（フラッシュメッセージ）
+      flash.now[:alert] = "登録に失敗しました。"
       render :index
     end
   end
