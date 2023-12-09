@@ -20,7 +20,7 @@ class Public::MystoresController < ApplicationController
     else
       @mystore.opening_hours.build
       # 2023/12/06追加（フラッシュメッセージ）
-      flash.now[:alert] = "登録に失敗しました。" 
+      flash.now[:alert] = "登録に失敗しました。"
       render :new
     end
   end
@@ -51,8 +51,12 @@ class Public::MystoresController < ApplicationController
   def update
     # 店舗情報の更新可否
     if @mystore.update(mystore_params)
+      # 2023/12/09追加（フラッシュメッセージ）
+      flash[:notice] = "更新に成功しました。"
       redirect_to mystore_path(@mystore.id)
     else
+      # 2023/12/09追加（フラッシュメッセージ）
+      flash.now[:alert] = "更新に失敗しました。"
       render :edit
     end
   end
