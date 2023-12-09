@@ -63,8 +63,12 @@ class Public::MymenusController < ApplicationController
   def update
     # メニュー情報の更新可否
     if @mymenu.update(mymenu_params)
+      # 2023/12/09追加（フラッシュメッセージ）
+      flash[:notice] = "更新に成功しました。"
       redirect_to mystore_mymenus_path(@mymenu.store_id)
     else
+      # 2023/12/09追加（フラッシュメッセージ）
+      flash.now[:alert] = "更新に失敗しました。"
       render :edit
     end
   end
