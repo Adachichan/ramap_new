@@ -12,8 +12,12 @@ class Admin::StoresController < ApplicationController
   def update
     # 店舗情報の更新可否
     if @store.update(store_params)
+      # 2023/12/09追加（フラッシュメッセージ）
+      flash[:notice] = "更新に成功しました。"
       redirect_to admin_store_path(@store.id)
     else
+      # 2023/12/09追加（フラッシュメッセージ）
+      flash.now[:alert] = "更新に失敗しました。"
       render :edit
     end
   end
