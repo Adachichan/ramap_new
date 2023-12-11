@@ -74,8 +74,23 @@ class Public::MymenusController < ApplicationController
   end
 
   def destroy
-    @mymenu.destroy
-    redirect_to mystore_mymenus_path(@mymenu.store_id)
+    # メニューの削除可否_2023/12/11追加
+    if @mymenu.destroy
+      # 2023/12/11追加（フラッシュメッセージ）
+      flash[:notice] = "削除しました。"
+      redirect_to mystore_mymenus_path(@mymenu.store_id)
+    else
+      @mystore = Store.find(params[:mystore_id])
+      @mymenus = @mystore.menus.page(params[:page]).per(10)
+      if params[:page]
+        @number = (params[:page].to_i - 1) * 10
+      else
+        @number = 0
+      end
+      # 2023/12/11追加（フラッシュメッセージ）
+      flash.now[:alert] = "削除できませんでした。"
+      render :index
+    end
   end
 
   def destroy_all
