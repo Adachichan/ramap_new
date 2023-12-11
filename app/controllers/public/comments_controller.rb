@@ -8,9 +8,13 @@ class Public::CommentsController < ApplicationController
 
     # コメントの保存可否
     if @comment.save
+      # 2023/12/11追加（フラッシュメッセージ）
+      flash[:notice] = "投稿に成功しました。"
       redirect_to store_review_path(@review.store_id, @review.id)
     else
       @comments = @review.comments.page(params[:page]).per(10)
+      # 2023/12/11追加（フラッシュメッセージ）
+      flash.now[:alert] = "投稿に失敗しました。"
       render "public/reviews/show"
     end
 
