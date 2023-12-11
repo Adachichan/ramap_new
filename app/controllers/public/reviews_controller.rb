@@ -22,12 +22,15 @@ class Public::ReviewsController < ApplicationController
 
     # 口コミの保存可否
     if @review.save
+      # 2023/12/11追加（フラッシュメッセージ）
+      flash[:notice] = "投稿に成功しました。"
       redirect_to store_review_path(@review.store_id, @review.id)
     else
       @store = Store.find(params[:store_id])
+      # 2023/12/11追加（フラッシュメッセージ）
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new
     end
-
   end
 
   def index
