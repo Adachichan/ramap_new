@@ -39,7 +39,7 @@ class Admin::ReviewsController < ApplicationController
         @number = 0
       end
     end
-    
+
   end
 
   def show
@@ -48,6 +48,8 @@ class Admin::ReviewsController < ApplicationController
   def destroy
     if @review
       @review.destroy
+      # 2023/12/11追加（フラッシュメッセージ）
+      flash[:notice] = "削除しました。"
     end
     redirect_to admin_reviews_path
   end
