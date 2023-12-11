@@ -22,6 +22,8 @@ class Admin::CommentsController < ApplicationController
     comment = Comment.find(params[:id])
     if comment
       comment.destroy
+      # 2023/12/11追加（フラッシュメッセージ）
+      flash[:notice] = "削除しました。"
     end
     redirect_to admin_review_comments_path(comment.review_id)
   end
