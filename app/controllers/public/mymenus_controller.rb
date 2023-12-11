@@ -94,30 +94,17 @@ class Public::MymenusController < ApplicationController
   end
 
   def destroy_all
-    @mystore = Store.find(params[:mystore_id])
+    mystore = Store.find(params[:mystore_id])
 
     # 他ユーザーからのアクセスを制限する
-    unless @mystore.user_id == current_user.id
+    unless mystore.user_id == current_user.id
       redirect_to mystores_path
     end
 
-    # メニューの全削除可否_2023/12/11追加
-    if @mystore.menus.destroy_all
-      # 2023/12/11追加（フラッシュメッセージ）
-      flash[:notice] = "全て削除しました。"
-      redirect_to mystore_mymenus_path(@mystore.id)
-    else
-      @mymenu = Menu.find(params[:id])
-      @mymenus = @mystore.menus.page(params[:page]).per(10)
-      if params[:page]
-        @number = (params[:page].to_i - 1) * 10
-      else
-        @number = 0
-      end
-      # 2023/12/11追加（フラッシュメッセージ）
-      flash.now[:alert] = "削除できませんでした。"
-      render :index
-    end
+    mystore.menus.destroy_all
+    # 2023/12/11追加（フラッシュメッセージ）
+    flash[:notice] = "全て削除しました。"
+    redirect_to mystore_mymenus_path(mystore.id)
   end
 
   private
