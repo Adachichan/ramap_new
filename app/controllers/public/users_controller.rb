@@ -12,8 +12,12 @@ class Public::UsersController < ApplicationController
   def update
     # user情報の更新可否
     if @user.update(user_params)
+      # 2023/12/20追加（フラッシュメッセージ）
+      flash[:notice] = "更新に成功しました。"
       redirect_to mypage_path
     else
+      # 2023/12/20追加（フラッシュメッセージ）
+      flash.now[:alert] = "更新に失敗しました。"
       render :edit
     end
   end
