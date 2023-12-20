@@ -29,8 +29,12 @@ class Admin::StoreGenresController < ApplicationController
   def update
     # 店舗ジャンルの更新可否
     if @store_genre.update(store_genre_params)
+      # 2023/12/20追加（フラッシュメッセージ）
+      flash[:notice] = "更新に成功しました。"
       redirect_to admin_store_genres_path
     else
+      # 2023/12/20追加（フラッシュメッセージ）
+      flash.now[:alert] = "更新に失敗しました。"
       render :edit
     end
   end
