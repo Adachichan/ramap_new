@@ -12,9 +12,13 @@ class Admin::StoreGenresController < ApplicationController
     @store_genre = StoreGenre.new(store_genre_params)
     # 店舗ジャンルの保存可否
     if @store_genre.save
+      # 2023/12/20追加（フラッシュメッセージ）
+      flash[:notice] = "登録に成功しました。"
       redirect_to admin_store_genres_path
     else
       @store_genres = StoreGenre.page(params[:page]).per(10)
+      # 2023/12/20追加（フラッシュメッセージ）
+      flash.now[:alert] = "登録に失敗しました。"
       render :index
     end
   end
