@@ -160,16 +160,20 @@
 
       <div class = "public_mystore_show_button_group mb-4">
 
-        <%= link_to edit_mystore_path(@mystore.id), class: "btn btn-success public_mystore_show_edit_button" do %>
-          編集する
-        <% end %>
+        <% if @mystore.is_closed == false %>
 
-        <%= link_to mystore_mymenus_path(@mystore.id), class: "btn btn-warning public_mystore_show_menu_button" do %>
-          メニュー登録 / 一覧
-        <% end %>
+          <%= link_to edit_mystore_path(@mystore.id), class: "btn btn-success public_mystore_show_edit_button" do %>
+            編集する
+          <% end %>
 
-        <%= link_to closing_confirm_path(@mystore.id), class: "btn btn-danger public_mystore_show_closing_button" do %>
-          閉店する
+          <%= link_to mystore_mymenus_path(@mystore.id), class: "btn btn-warning public_mystore_show_menu_button" do %>
+            メニュー登録 / 一覧
+          <% end %>
+
+          <%= link_to closing_confirm_path(@mystore.id), class: "btn btn-danger public_mystore_show_closing_button" do %>
+            閉店する
+          <% end %>
+
         <% end %>
 
       </div>
