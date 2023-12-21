@@ -16,8 +16,13 @@ class Admin::UsersController < ApplicationController
   def update
     # user情報の更新可否
     if @user.update(user_params)
+      # 2023/12/20追加（フラッシュメッセージ）
+      flash[:notice] = "更新に成功しました。"
       redirect_to admin_user_path(@user.id)
     else
+      # コメント：編集画面において、名前が表示されない・・・（改善点）
+      # 2023/12/20追加（フラッシュメッセージ）
+      flash.now[:alert] = "更新に失敗しました。"
       render :edit
     end
   end
