@@ -66,6 +66,8 @@ class Public::MystoresController < ApplicationController
 
   def close
     @mystore.update(is_closed: true) # 閉店フラグを「退会する」に更新
+    # 2023/12/21追加（フラッシュメッセージ）
+    flash[:notice] = "#{@mystore.name} の開店ステータスを「閉店」に変更しました。"
     redirect_to mystores_path
   end
 
