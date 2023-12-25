@@ -10,15 +10,22 @@ class Public::UsersController < ApplicationController
   end
 
   def update
-    # user情報の更新可否
-    if @user.update(user_params)
-      # 2023/12/20追加（フラッシュメッセージ）
-      flash[:notice] = "更新に成功しました。"
-      redirect_to mypage_path
-    else
-      # 2023/12/20追加（フラッシュメッセージ）
-      flash.now[:alert] = "更新に失敗しました。"
+    # user_check(guest)
+    if @user.email == 'guest@example.com'
+      # 2023/12/25追加（フラッシュメッセージ）
+      flash.now[:alert] = "ゲストユーザーの更新はできません。"
       render :edit
+    else
+      # user情報の更新可否
+      if @user.update(user_params)
+        # 2023/12/20追加（フラッシュメッセージ）
+        flash[:notice] = "更新に成功しました。"
+        redirect_to mypage_path
+      else
+        # 2023/12/20追加（フラッシュメッセージ）
+        flash.now[:alert] = "更新に失敗しました。"
+        render :edit
+      end
     end
   end
 
