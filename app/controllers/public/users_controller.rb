@@ -26,9 +26,16 @@ class Public::UsersController < ApplicationController
   end
 
   def withdraw
-    @user.update(is_deleted: true) # 退会フラグを「退会する」に更新（ログインユーザー）
-    reset_session # 全てのsession（ログインユーザーの情報）を破棄する
-    redirect_to root_path
+    # user_check(guest)
+    if @user.email == 'guest@example.com'
+      # 2023/12/25追加（フラッシュメッセージ）
+      flash.now[:alert] = "ゲストユーザーは退会できません。"
+      render :unsubscribe
+    else
+      @user.update(is_deleted: true) # 退会フラグを「退会する」に更新（ログインユーザー）
+      reset_session # 全てのsession（ログインユーザーの情報）を破棄する
+      redirect_to root_path
+    end
   end
 
   private
