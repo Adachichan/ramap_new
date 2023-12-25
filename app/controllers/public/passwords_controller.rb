@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Public::PasswordsController < Devise::PasswordsController
+  before_action :ensure_normal_user, only: :create
+
   # GET /resource/password/new
   # def new
   #   super
@@ -21,7 +23,7 @@ class Public::PasswordsController < Devise::PasswordsController
   #   super
   # end
 
-  # protected
+  protected
 
   # def after_resetting_password_path_for(resource)
   #   super(resource)
@@ -31,4 +33,13 @@ class Public::PasswordsController < Devise::PasswordsController
   # def after_sending_reset_password_instructions_path_for(resource_name)
   #   super(resource_name)
   # end
+
+  def ensure_normal_user
+    if params[:user][:email].downcase == 'guest@example.com'
+      # 2023/12/25追加（フラッシュメッセージ）
+      flash[:alert] = "ゲストユーザーのパスワード再設定はできません。"
+      redirect_to new_user_session_path
+    end
+  end
+
 end
