@@ -32,6 +32,7 @@ class Public::UsersController < ApplicationController
   end
 
   def withdraw
+    # あってもなくても・・・
     # user_check(guest)
     if @user.email == 'guest@example.com'
       # 2023/12/25追加（フラッシュメッセージ）

@@ -53,7 +53,7 @@ class Public::SessionsController < Devise::SessionsController
       # 退会フラグがtrueの場合、サインアップ画面に遷移する
       if @user.valid_password?(params[:user][:password]) && @user.is_deleted == true
         # 2023/12/21追加（フラッシュメッセージ）
-        flash[:alert] = "退会済のアカウントであるため、ログインすることができません。"
+        flash[:alert] = "お客様は退会済みです。申し訳ございませんが、別のメールアドレスをお使いください。"
         redirect_to new_user_session_path
       end
     end
