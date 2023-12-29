@@ -118,7 +118,8 @@ function initMap() {
       // マーカーを表示する
       markers[i] = new google.maps.Marker({
         position: { lat: store.lat, lng: store.lng },
-        map: map
+        map: map,
+        id: store.id
       });
 
       // マーカーをクリックした時に出る情報をセットする
@@ -130,7 +131,18 @@ function initMap() {
 
       // マーカーをクリックした時の挙動を設定する
       markers[i].addListener('click', () => {
-        infoWindows[i].open(map, markers[i])
+
+        // 受け取った店舗数分、処理を繰り返す
+        for (let j = 0; j < stores.length; j++){
+
+          // 店舗idとクリックした店舗idが等しい場合 → 情報ウィンドウを開く
+          // 店舗idとクリックした店舗idが異なる場合 → 情報ウィンドウを閉じる
+          if (stores[j].id == markers[i].id) {
+            infoWindows[j].open(map, markers[i]);
+          } else {
+            infoWindows[j].close(map, markers[i]);
+          }
+        }
       });
     }
   });
