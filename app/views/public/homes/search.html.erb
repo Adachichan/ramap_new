@@ -173,16 +173,18 @@ function initMap() {
 
       // マーカーをクリックした時の挙動
       markers[i].addListener('click', () => {
-        // 情報ウィンドウを開く
-        infoWindows[i].open(map, markers[i])
 
         // 受け取った店舗数分、処理を繰り返す
         for (let j = 0; j < search_stores.length; j++){
-          // 店舗idとクリックした店舗idが等しい場合 → hidden_storeクラスを削除（店舗情報を表示）
-          // 店舗idとクリックした店舗idが異なる場合 → hidden_storeクラスを追加（店舗情報を非表示）
+          // 店舗idとクリックした店舗idが等しい場合 → 情報ウィンドウを開く
+          //                                          hidden_storeクラスを削除（店舗情報を表示）
+          // 店舗idとクリックした店舗idが異なる場合 → 情報ウィンドウを閉じる
+          //                                          hidden_storeクラスを追加（店舗情報を非表示）
           if (search_stores[j].id == markers[i].id) {
+            infoWindows[j].open(map, markers[j])
             $('#store_' + search_stores[j].id).removeClass('hidden_store');
           } else {
+            infoWindows[j].close(map, markers[j])
             $('#store_' + search_stores[j].id).addClass('hidden_store');
           }
         }
