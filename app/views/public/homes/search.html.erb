@@ -135,63 +135,52 @@ function initMap() {
   // 定数の使用宣言＆controllerからインスタンス変数を受け取る
   const search_stores = JSON.parse('<%== @search_stores_json || [] %>')
 
-  // 現在地を取得する
-  navigator.geolocation.getCurrentPosition(function(position) {
+  // 地図表示
+  map = new google.maps.Map(document.getElementById('map'), {
+    // 中心位置の設定（lat → 緯度、lng → 経度）
+    center: { lat: 34.6937, lng: 135.5021 },
+    // 地図の拡大縮小設定
+    zoom: 8,
+  });
 
-    latLng = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
+  // 受け取った店舗数分、処理を繰り返す
+  for (let i = 0; i < search_stores.length; i++) {
 
-    // 地図を生成し、現在地を中心に表示する（暫定処置）
-    map = new google.maps.Map(document.getElementById('map'), {
-      // 中心位置の設定
-      center: latLng,
-      // 地図の拡大縮小設定
-      zoom: 12,
+    // 店舗情報を配列に格納する（1データ）
+    const search_store = search_stores[i]
+
+    // マーカーを表示
+    markers[i] = new google.maps.Marker({
+      position: { lat: search_store.lat, lng: search_store.lng },
+      map: map,
+      id: search_store.id
     });
 
-    // 受け取った店舗数分、処理を繰り返す
-    for (let i = 0; i < search_stores.length; i++) {
+    // 情報ウィンドウの表示内容
+    infoWindows[i] = new google.maps.InfoWindow({
+      content: `
+        <a href="stores/${search_store.id}">${search_store.name}</a>
+      `
+    })
 
-      // 店舗情報を配列に格納する（1データ）
-      const search_store = search_stores[i]
+    // マーカーをクリックした時の挙動
+    markers[i].addListener('click', () => {
+      // 情報ウィンドウを開く
+      infoWindows[i].open(map, markers[i])
 
-      // マーカーを表示
-      markers[i] = new google.maps.Marker({
-        position: { lat: search_store.lat, lng: search_store.lng },
-        map: map,
-        id: search_store.id
-      });
-
-      // 情報ウィンドウの表示内容
-      infoWindows[i] = new google.maps.InfoWindow({
-        content: `
-          <a href="stores/${search_store.id}">${search_store.name}</a>
-        `
-      });
-
-      // マーカーをクリックした時の挙動
-      markers[i].addListener('click', () => {
-
-        // 受け取った店舗数分、処理を繰り返す
-        for (let j = 0; j < search_stores.length; j++){
-
-          // 店舗idとクリックした店舗idが等しい場合 → 情報ウィンドウを開く
-          //                                          hidden_storeクラスを削除（店舗情報を表示）
-          // 店舗idとクリックした店舗idが異なる場合 → 情報ウィンドウを閉じる
-          //                                          hidden_storeクラスを追加（店舗情報を非表示）
-          if (search_stores[j].id == markers[i].id) {
-            infoWindows[j].open(map, markers[i]);
-            $('#store_' + search_stores[j].id).removeClass('hidden_store');
-          } else {
-            infoWindows[j].close(map, markers[i]);
-            $('#store_' + search_stores[j].id).addClass('hidden_store');
-          }
+      // 受け取った店舗数分、処理を繰り返す
+      for (let j = 0; j < search_stores.length; j++){
+        // 店舗idとクリックした店舗idが等しい場合 → hidden_storeクラスを削除（店舗情報を表示）
+        // 店舗idとクリックした店舗idが異なる場合 → hidden_storeクラスを追加（店舗情報を非表示）
+        if (search_stores[j].id == markers[i].id) {
+          $('#store_' + search_stores[j].id).removeClass('hidden_store');
+        } else {
+          $('#store_' + search_stores[j].id).addClass('hidden_store');
         }
-      });
-    }
-  });
+      }
+
+    })
+  }
 }
 
 </script>
