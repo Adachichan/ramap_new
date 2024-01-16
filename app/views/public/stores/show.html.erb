@@ -5,7 +5,8 @@
     <div class = "public_store_show_overview col-sm-5">
       <h5><%= @store.name %></h5>
       <div class = "public_store_show_prefecture"><%= @store.prefecture_i18n %></div>
-      <div class = "public_store_show_closest_station"><%= @store.store_genre.name %> / <%= @store.closest_station %></div>
+      <div class = "public_store_show_store_genre"><%= @store.store_genre.name %></div>
+      <div class = "public_store_show_closest_station"><%= @store.closest_station %></div>
       <% if @store.reviews.length > 0 %>
         <div class = "public_store_show_review_score_bar">
           <div>
